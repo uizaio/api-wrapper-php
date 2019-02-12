@@ -1,0 +1,14 @@
+{
+    "require": {
+        "php-curl-class/php-curl-class": "^8.5",
+        "monolog/monolog": "^1.24"
+    },
+    "autoload": {
+        "psr-4": {
+          "Uiza\\": "lib/"
+        },
+        "files": [
+            "lib/Util/helpers.php"
+        ]
+    }
+}
