@@ -92,10 +92,11 @@ class Entity extends ApiResource
         }
 
         $inputType = ["http", "s3", "ftp", "s3-uiza"];
+
         if (!array_key_exists('inputType', $params)) {
             throw new \Uiza\Exception\InvalidParam('inputType is required');
         } else {
-            if (in_array('inputType', $inputType)) {
+            if (!in_array($params['inputType'], $inputType)) {
                 throw new \Uiza\Exception\InvalidParam('inputType is must belong http, s3, ftp, s3-uiza.');
             }
         }

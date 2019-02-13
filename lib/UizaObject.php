@@ -92,7 +92,7 @@ class UizaObject implements \ArrayAccess, \Countable, \JsonSerializable {
     {
         $results = [];
         foreach ($values as $k => $v) {
-            if ($v instanceof StripeObject) {
+            if ($v instanceof UizaObject) {
                 $results[$k] = $v->__toArray(true);
             } elseif (is_array($v)) {
                 $results[$k] = self::convertUizaObjectToArray($v);
