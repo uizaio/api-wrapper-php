@@ -12,7 +12,7 @@ trait All
      */
     public static function all($params = null, $opts = null)
     {
-        self::_validateParams($params);
+        self::_validateParams('All', $params);
         $url = static::resourceUrl();
         $response = static::_staticRequest('GET', $url, $params);
 

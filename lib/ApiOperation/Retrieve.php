@@ -12,7 +12,7 @@ trait Retrieve {
      */
     public static function retrieve($id, $params = null)
     {
-        self::_validateParams($params);
+        self::_validateParams('Retrieve', $params);
         $instance = new static($id);
         $instance->refresh();
 

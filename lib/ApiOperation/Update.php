@@ -13,7 +13,7 @@ trait Update
      */
     public static function update($id, $params = null)
     {
-        self::_validateParams($params);
+        self::_validateParams('Update', $params);
         $params += ['id' => $id];
         $url = static::classUrl();
         $response = static::_staticRequest('PUT', $url, $params);

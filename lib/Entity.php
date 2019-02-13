@@ -22,6 +22,20 @@ class Entity extends ApiResource
         return Base::getBaseUrl() . self::classUrl();
     }
 
+    public static function search($params = [])
+    {
+        self::_validateParams('Search', $params);
+        $url = static::resourceUrl() . '/search';
+        $response = static::_staticRequest('GET', $url, $params);
+    }
+
+    public static function publish($params = [])
+    {
+        self::_validateParams('Publish', $params);
+        $url = static::resourceUrl() . '/publish';
+        $response = static::_staticRequest('POST', $url, $params);
+    }
+
     public static function flattenAttri($values)
     {
         $results = [];
@@ -51,5 +65,39 @@ class Entity extends ApiResource
 
         $updateParams += ['id' => $this['id']];
         return $updateParams;
+    }
+
+    public static function validatePublish($params = [])
+    {
+        if (!array_key_exists('id', $params)) {
+            throw new \Uiza\Exception\InvalidParam('id is required');
+        }
+    }
+
+    public static function validateSearch($params = [])
+    {
+        if (!array_key_exists('keyword', $params)) {
+            throw new \Uiza\Exception\InvalidParam('keyword is required');
+        }
+    }
+
+    public static function validateCreate($params = [])
+    {
+        if (!array_key_exists('name', $params)) {
+            throw new \Uiza\Exception\InvalidParam('Name is required');
+        }
+
+        if (!array_key_exists('url', $params)) {
+            throw new \Uiza\Exception\InvalidParam('Url is required');
+        }
+
+        $inputType = ["http", "s3", "ftp", "s3-uiza"];
+        if (!array_key_exists('inputType', $params)) {
+            throw new \Uiza\Exception\InvalidParam('inputType is required');
+        } else {
+            if (in_array('inputType', $inputType)) {
+                throw new \Uiza\Exception\InvalidParam('inputType is must belong http, s3, ftp, s3-uiza.');
+            }
+        }
     }
 }
