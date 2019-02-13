@@ -131,7 +131,7 @@ class ApiRequestor
                 $this->httpClient()->post($absUrl, $params);
                 break;
             case 'PUT':
-                $this->httpClient()->patch($absUrl, $params);
+                $this->httpClient()->put($absUrl, $params);
                 break;
             case 'DELETE':
                 $this->httpClient()->delete($absUrl, $params);
