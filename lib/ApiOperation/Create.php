@@ -11,9 +11,14 @@ trait Create {
      */
     public static function create($params = null, $options = null)
     {
-        self::_validateParams($params);
+        self::_validateParams('Create', $params);
         $url = static::classUrl();
-        $response = static::_staticRequest('post', $url, $params, $options);
-        return $response;
+        $response = static::_staticRequest('POST', $url, $params, $options);
+
+        $instance = new static;
+        $instance->refreshFrom($response->json);
+        $instance->setLastResponse($response);
+
+        return $instance;
     }
 }

@@ -11,11 +11,14 @@ trait Request {
      *
      * @throws \Stripe\Error\Api if $params exists and is not an array
      */
-    protected static function _validateParams($params = null)
+    protected static function _validateParams($action, $params = null)
     {
         if ($params && !is_array($params)) {
             $message = "You must pass an array as the first argument.";
             throw new InvalidParam($message);
+        }
+        if (method_exists(get_called_class(), 'validate'.$action)) {
+            static::{'validate'.$action}($params);
         }
     }
 
@@ -33,7 +36,6 @@ trait Request {
         if ($options && isset($options['hearders'])) {
             $headers = $options['hearders'];
         }
-        $url = static::resourceUrl();
 
         $requestor = new \Uiza\ApiRequestor();
         $response = $requestor->request($method, $url, $params, $headers);
