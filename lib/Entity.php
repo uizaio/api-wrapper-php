@@ -36,6 +36,14 @@ class Entity extends ApiResource
         $response = static::_staticRequest('POST', $url, $params);
     }
 
+    public static function getAWSUploadKey($params = [])
+    {
+        $url = Base::getBaseUrl(). 'admin/app/config/aws';
+        $response = static::_staticRequest('GET', $url, $params);
+
+        return $response;
+    }
+
     public static function flattenAttri($values)
     {
         $results = [];

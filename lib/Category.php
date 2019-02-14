@@ -20,7 +20,7 @@ class Category extends ApiResource
 
     public static function resourceUrl()
     {
-        return self::getBaseUrl() . self::classUrl();
+        return Base::getBaseUrl() . self::classUrl();
     }
 
     public static function flattenAttri($values)
