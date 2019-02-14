@@ -7,6 +7,7 @@ class Entity extends ApiResource
     use \Uiza\ApiOperation\Create;
     use \Uiza\ApiOperation\Update;
     use \Uiza\ApiOperation\Retrieve;
+    use \Uiza\ApiOperation\Delete;
     use \Uiza\ApiOperation\All;
 
     /**
@@ -22,18 +23,34 @@ class Entity extends ApiResource
         return Base::getBaseUrl() . self::classUrl();
     }
 
-    public static function search($params = [])
+    public static function search($keyword, $params = [])
     {
+        $params = ['keyword' => $keyword];
         self::_validateParams('Search', $params);
         $url = static::resourceUrl() . '/search';
         $response = static::_staticRequest('GET', $url, $params);
+
+        return $response;
     }
 
-    public static function publish($params = [])
+    public static function publish($id, $params = [])
     {
+        $params = ['id' => $id];
         self::_validateParams('Publish', $params);
         $url = static::resourceUrl() . '/publish';
         $response = static::_staticRequest('POST', $url, $params);
+
+        return $response;
+    }
+
+    public static function getStatusPublish($id, $params = [])
+    {
+        $params += ['id' => $id];
+        self::_validateParams('Get Status Publish', $params);
+        $url = static::resourceUrl() . '/publish/status';
+        $response = static::_staticRequest('GET', $url, $params);
+
+        return $response;
     }
 
     public static function flattenAttri($values)
@@ -76,7 +93,8 @@ class Entity extends ApiResource
 
     public static function validateSearch($params = [])
     {
-        if (!array_key_exists('keyword', $params)) {
+        if (!array_key_exists('keyword', $params)
+            || (array_key_exists('keyword', $params) && $params['keyword'] == '')) {
             throw new \Uiza\Exception\InvalidParam('keyword is required');
         }
     }

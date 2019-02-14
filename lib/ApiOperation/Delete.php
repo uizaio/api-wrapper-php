@@ -7,16 +7,25 @@ trait Delete {
      * @param array|null $params
      * @param array|string|null $opts
      *
-     * @return \Stripe\ApiResource The deleted resource.
+     * @return \Uiza\ApiResource The deleted resource.
      */
-    public function delete($params = null)
+    public static function delete($id, $params = null)
     {
         self::_validateParams($params);
-        $url = static::classUrl();
+        $url = static::resourceUrl();
+        $params = ['id' => $id];
         $response = static::_staticRequest('DELETE', $url, $params);
-        $instance = new static($id);
-        $instance->refreshFrom($response->json);
-        $instance->setLastResponse($response);
+
+        return $response;
+    }
+
+    public function destroy()
+    {
+        $params = $this->serializeParameters();
+        $url = static::resourceUrl();
+        $response = static::_staticRequest('DELETE', $url, $params);
+        $this->refreshFrom($response->json);
+        $this->setLastResponse($response);
 
         return $this;
     }
