@@ -8,9 +8,11 @@ use Monolog\Handler\FirePHPHandler;
 
 class Base {
 
+    public static $apiSubdomain;
+
     public static $apiKey;
 
-    public static $apiBase = 'https://apiwrapper.uiza.co';
+    public static $apiBase;
 
     public static $apiVersion = 'v3';
 
@@ -29,6 +31,12 @@ class Base {
     public static function getApiKey()
     {
         return self::$apiKey;
+    }
+
+    public static function setApiSubdomain(string $apiSubdomain)
+    {
+        self::$apiSubdomain = $apiSubdomain;
+        self::$apiBase = 'https://' . self::$apiSubdomain . '.uiza.co';
     }
 
     public static function getBaseUrl()
