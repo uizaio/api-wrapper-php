@@ -15,7 +15,7 @@ trait Update
     {
         self::_validateParams('Update', $params);
         $params += ['id' => $id];
-        $url = static::classUrl();
+        $url = static::resourceUrl();
         $response = static::_staticRequest('PUT', $url, $params);
         $instance = new static($id);
         $instance->refreshFrom($response->json);
@@ -32,7 +32,7 @@ trait Update
     public function save()
     {
         $params = $this->serializeParameters();
-        $url = static::classUrl();
+        $url = static::resourceUrl();
         $response = static::_staticRequest('PUT', $url, $params);
         $this->refreshFrom($response->json);
 
