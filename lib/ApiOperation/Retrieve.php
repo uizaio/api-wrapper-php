@@ -8,7 +8,7 @@ trait Retrieve {
      *     or an options array containing an `id` key.
      * @param array|string|null $opts
      *
-     * @return \Stripe\StripeObject
+     * @return \Uiza\StripeObject
      */
     public static function retrieve($id, $params = null)
     {

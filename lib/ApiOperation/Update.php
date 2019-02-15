@@ -9,7 +9,7 @@ trait Update
      * @param array|null $params
      * @param array|string|null $opts
      *
-     * @return \Stripe\ApiResource The updated resource.
+     * @return \Uiza\ApiResource The updated resource.
      */
     public static function update($id, $params = null)
     {
@@ -27,7 +27,7 @@ trait Update
     /**
      * @param array|string|null $opts
      *
-     * @return \Stripe\ApiResource The saved resource.
+     * @return \Uiza\ApiResource The saved resource.
      */
     public function save()
     {
