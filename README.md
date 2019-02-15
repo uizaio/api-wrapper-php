@@ -25,7 +25,7 @@ require __DIR__."/../vendor/autoload.php";
 ### List entity.
 
 ````
-Uiza\Base::setApiKey('uap-a2aaa7b2aea746ec89e67ad2f8f9ebbf-fdf5bdca');
+Uiza\Base::setApiKey('your-api-key');
 
 $listEntity = Uiza\Entity::all();
 ````
@@ -65,4 +65,27 @@ $entity = Uiza\Entity::search(['keyword' => 'sample']);
 
 ````
 $entity = Uiza\Entity::publish(['id' => 'key ..']);
+````
+
+### Delete entity
+
+````
+$entity = Uiza\Entity::retrieve('key ... ');
+$entity->destroy();
+
+// or
+
+Uiza\Entity::delete('key ...');
+````
+
+### Get Status Pulblish
+
+````
+Uiza\Entity::getStatusPublish('key ...');
+````
+
+### Get AWS Upload Key
+
+````
+Uiza\Entity::getAWSUploadKey();
 ````

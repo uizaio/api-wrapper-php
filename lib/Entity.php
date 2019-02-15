@@ -23,9 +23,8 @@ class Entity extends ApiResource
         return Base::getBaseUrl() . self::classUrl();
     }
 
-    public static function search($keyword, $params = [])
+    public static function search($params = [])
     {
-        $params = ['keyword' => $keyword];
         self::_validateParams('Search', $params);
         $url = static::resourceUrl() . '/search';
         $response = static::_staticRequest('GET', $url, $params);
@@ -33,9 +32,8 @@ class Entity extends ApiResource
         return $response;
     }
 
-    public static function publish($id, $params = [])
+    public static function publish($params = [])
     {
-        $params = ['id' => $id];
         self::_validateParams('Publish', $params);
         $url = static::resourceUrl() . '/publish';
         $response = static::_staticRequest('POST', $url, $params);
