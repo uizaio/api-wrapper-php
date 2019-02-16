@@ -141,6 +141,9 @@ class ApiRequestor
                 break;
         }
         $curl = $this->httpClient();
+        var_dump($curl);
+        exit(3);
+
         if ($curl->error) {
             throw new \Uiza\Exception\InvalidRequest('Error: ' . $curl->errorCode . ': ' . $curl->errorMessage . "\n");
         } else {

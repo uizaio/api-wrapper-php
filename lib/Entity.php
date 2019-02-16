@@ -90,6 +90,16 @@ class Entity extends ApiResource
         return $updateParams;
     }
 
+    public static function validateAll($params = [])
+    {
+        $pubArr = ['queue', 'not-ready', 'success', 'failed'];
+        if (array_key_exists('publishToCdn', $params)) {
+            if (!in_array($params['publishToCdn'], $pubArr)) {
+                throw new \Uiza\Exception\InvalidParam('publishToCdn is one of value: queue, not-ready, success, failed ');
+            }
+        }
+    }
+
     public static function validatePublish($params = [])
     {
         if (!array_key_exists('id', $params)) {

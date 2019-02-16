@@ -2,6 +2,6 @@
 
 namespace Uiza\Exception;
 
-class Authenticate extends Base {
+class Authentication extends Base {
 
 }
