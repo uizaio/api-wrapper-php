@@ -18,7 +18,7 @@ trait Update
         $url = static::resourceUrl();
         $response = static::_staticRequest('PUT', $url, $params);
         $instance = new static($id);
-        $instance->refreshFrom($response->json);
+        $instance->refreshFrom($response->body);
         $instance->setLastResponse($response);
 
         return $instance;
@@ -34,8 +34,8 @@ trait Update
         $params = $this->serializeParameters();
         $url = static::resourceUrl();
         $response = static::_staticRequest('PUT', $url, $params);
-        $this->refreshFrom($response->json);
-
+        $this->refreshFrom($response->body);
+        $this->setLastResponse($response);
         return $this;
     }
 }

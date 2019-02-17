@@ -16,7 +16,7 @@ trait Create {
         $response = static::_staticRequest('POST', $url, $params, $options);
 
         $instance = new static;
-        $instance->refreshFrom($response->json);
+        $instance->refreshFrom($response->body);
         $instance->setLastResponse($response);
 
         return $instance;

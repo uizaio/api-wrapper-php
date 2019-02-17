@@ -59,20 +59,6 @@ class Entity extends ApiResource
         return $response;
     }
 
-    public static function flattenAttri($values)
-    {
-        $results = [];
-        foreach ($values as $key => $value) {
-            if (is_array($value)) {
-                $results = array_merge($results, $value);
-            } else {
-                $results += [$key => $value];
-            }
-        }
-
-        return $results;
-    }
-
     /**
      * @return array A recursive mapping of attributes to values for this object,
      *    including the proper value for deleted attributes.

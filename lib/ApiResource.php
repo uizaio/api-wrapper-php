@@ -3,7 +3,7 @@ namespace Uiza;
 
 class ApiResource extends UizaObject
 {
-	use \Uiza\ApiOperation\Request;
+    use \Uiza\ApiOperation\Request;
     /**
      * @return ApiResource The refreshed resource.
      */
@@ -13,7 +13,7 @@ class ApiResource extends UizaObject
         $params = ['id' => $this['id']];
         $response = static::_staticRequest('GET', $url, $params);
         $this->setLastResponse($response);
-        $this->refreshFrom($response->json);
+        $this->refreshFrom($response->body);
 
         return $this;
     }

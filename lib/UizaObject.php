@@ -137,6 +137,60 @@ class UizaObject implements \ArrayAccess, \Countable, \JsonSerializable {
         $this->_lastResponse = $resp;
     }
 
+    public static function flattenAttri($values)
+    {
+        if (array_key_exists('data', $values)) {
+            $values = $values['data'];
+        }
+
+        $results = [];
+        foreach ($values as $key => $value) {
+            if (is_array($value)) {
+                $results = array_merge($results, $value);
+            } else {
+                $results += [$key => $value];
+            }
+        }
+
+        return $results;
+    }
+
+    /**
+     * Determine if the new and old values for a given key are numerically equivalent.
+     *
+     * @param  string  $key
+     * @return bool
+     */
+    protected function originalIsNumericallyEquivalent($key)
+    {
+        $current = $this->_values[$key];
+        $original = $this->_originalValues[$key];
+        // This method checks if the two values are numerically equivalent even if they
+        // are different types. This is in case the two values are not the same type
+        // we can do a fair comparison of the two values to know if this is dirty.
+        return is_numeric($current) && is_numeric($original)
+            && strcmp((string) $current, (string) $original) === 0;
+    }
+
+    /**
+     * Get the attributes that have been changed since last sync.
+     *
+     * @return array
+     */
+    public function getDirty()
+    {
+        $dirty = [];
+        foreach ($this->_values as $key => $value) {
+            if (! array_key_exists($key, $this->_originalValues)) {
+                $dirty[$key] = $value;
+            } elseif ($value !== $this->original[$key] &&
+                    ! $this->originalIsNumericallyEquivalent($key)) {
+                $dirty[$key] = $value;
+            }
+        }
+        return $dirty;
+    }
+
     /**
      * Refreshes this object using the provided values.
      *
@@ -146,51 +200,23 @@ class UizaObject implements \ArrayAccess, \Countable, \JsonSerializable {
      */
     public function refreshFrom($values)
     {
-        $this->_originalValues = self::deepCopy($values);
-
-        if ($values instanceof UizaObject) {
-            $values = $values->__toArray(true);
-        }
-
         if ($values instanceof stdClass || is_object($values)) {
             $values = json_decode(json_encode($values), true);
         }
+        $this->_originalValues = $values;
 
         $values = static::flattenAttri($values);
-
-        // Wipe old state before setting new.  This is useful for e.g. updating a
-        // customer, where there is no persistent card parameter.  Mark those values
-        // which don't persist as transient
 
         $removed = new \Uiza\Util\Set(array_diff(array_keys($this->_values), array_keys($values)));
 
         foreach ($removed->toArray() as $k) {
-            unset($this->$k);
+            unset($this->_values[$k]);
         }
 
         $this->updateAttributes($values);
 
         foreach ($values as $k => $v) {
             $this->_unsavedValues->discard($k);
-        }
-    }
-
-    /**
-     * Produces a deep copy of the given object including support for arrays
-     * and StripeObjects.
-     */
-    protected static function deepCopy($obj)
-    {
-        if (is_array($obj)) {
-            $copy = [];
-            foreach ($obj as $k => $v) {
-                $copy[$k] = self::deepCopy($v);
-            }
-            return $copy;
-        } elseif ($obj instanceof UizaObject) {
-            return $obj::constructFrom(self::deepCopy($obj->_values));
-        } else {
-            return $obj;
         }
     }
 
