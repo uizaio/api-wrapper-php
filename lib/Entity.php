@@ -59,20 +59,6 @@ class Entity extends ApiResource
         return $response;
     }
 
-    public static function flattenAttri($values)
-    {
-        $results = [];
-        foreach ($values as $key => $value) {
-            if (is_array($value)) {
-                $results = array_merge($results, $value);
-            } else {
-                $results += [$key => $value];
-            }
-        }
-
-        return $results;
-    }
-
     /**
      * @return array A recursive mapping of attributes to values for this object,
      *    including the proper value for deleted attributes.
@@ -88,6 +74,16 @@ class Entity extends ApiResource
 
         $updateParams += ['id' => $this['id']];
         return $updateParams;
+    }
+
+    public static function validateAll($params = [])
+    {
+        $pubArr = ['queue', 'not-ready', 'success', 'failed'];
+        if (array_key_exists('publishToCdn', $params)) {
+            if (!in_array($params['publishToCdn'], $pubArr)) {
+                throw new \Uiza\Exception\InvalidParam('publishToCdn is one of value: queue, not-ready, success, failed ');
+            }
+        }
     }
 
     public static function validatePublish($params = [])

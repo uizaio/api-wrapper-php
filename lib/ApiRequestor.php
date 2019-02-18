@@ -1,7 +1,8 @@
 <?php
 
 namespace Uiza;
-use \Curl\Curl;
+
+use \GuzzleHttp\Client;
 
 class ApiRequestor
 {
@@ -60,7 +61,7 @@ class ApiRequestor
     private function httpClient()
     {
         if (!self::$_httpClient) {
-            self::$_httpClient = new Curl();
+            self::$_httpClient = new Client();
         }
 
         return self::$_httpClient;
@@ -120,61 +121,65 @@ class ApiRequestor
 
         $combinedHeaders = array_merge($defaultHeaders, $headers);
 
-        foreach ($combinedHeaders as $header => $value) {
-            $this->httpClient()->setHeader($header, $value);
-        }
         switch ($method) {
             case 'GET':
-                $this->httpClient()->get($absUrl, $params);
+                $response = $this->httpClient()->get($absUrl, [
+                    'query' => $params,
+                    'headers' => $combinedHeaders,
+                ]);
                 break;
             case 'POST':
-                $this->httpClient()->post($absUrl, $params);
+                $response = $this->httpClient()->post($absUrl, [
+                    \GuzzleHttp\RequestOptions::JSON => $params,
+                    'headers' => $combinedHeaders,
+                ]);
                 break;
             case 'PUT':
-                $this->httpClient()->put($absUrl, $params);
+                $response = $this->httpClient()->put($absUrl, [
+                    \GuzzleHttp\RequestOptions::JSON => $params,
+                    'headers' => $combinedHeaders,
+                ]);
                 break;
             case 'DELETE':
-                $this->httpClient()->delete($absUrl, $params);
+                $response = $this->httpClient()->delete($absUrl, [
+                    \GuzzleHttp\RequestOptions::JSON => $params,
+                    'headers' => $combinedHeaders,
+                ]);
                 break;
             default:
                 # code...
                 break;
         }
-        $curl = $this->httpClient();
-        if ($curl->error) {
-            throw new \Uiza\Exception\InvalidRequest('Error: ' . $curl->errorCode . ': ' . $curl->errorMessage . "\n");
-        } else {
-            $this->handleErrorHttp($curl->response);
-            return $this->_interpretResponse($curl->response, $curl->responseHeaders);
+        $pureContent = $response->getBody()->getContents();
+        $jsonContent = json_decode($pureContent);
+
+        $this->handleErrorHttp($response->getStatusCode());
+        $this->handleErrorCode($jsonContent);
+
+        return [$jsonContent, $jsonContent->code, $combinedHeaders, $pureContent];
+    }
+
+    private function handleErrorHttp($code)
+    {
+        $errors = [
+            400 => 'The request was unacceptable, often due to missing a required parameter',
+            401 => 'Unauthorized',
+            404 => 'The requested resource doesn\'t exist.',
+            422 => 'The syntax of the request is correct (often cause of wrong parameter)',
+            500 => 'We had a problem with our server. Try again later.',
+            503 => 'The server is overloaded or down for maintenance.',
+        ];
+
+        if ($code != 200) {
+            throw new \Uiza\Exception\ErrorRequest($code, $errors[$code]);
         }
     }
 
-    private function handleErrorHttp($res)
+    private function handleErrorCode($resp)
     {
-        if (is_null($res) || !$res->message || !$res->code) {
-            $msg = "Invalid structure response body from API";
-
-            throw new \Uiza\Exception\Base($msg);
-        }
-
-        return $res;
-    }
-
-    private function handleErrorResponse($resp)
-    {
-        $errorData = object_only($resp, ['message', 'code']);
-
-        throw new \Uiza\Exception\Base($errorData);
-    }
-
-    private function _interpretResponse($res, $rheaders)
-    {
-        $resp = $this->handleErrorHttp($res);
-
         if ($resp->code != 200) {
-             $this->handleErrorResponse($resp);
+            $errorData = object_only($resp, ['message', 'code']);
+            throw new \Uiza\Exception\Base($errorData);
         }
-
-        return [$resp, $resp->code, $rheaders, $res];
     }
 }

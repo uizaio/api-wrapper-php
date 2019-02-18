@@ -68,3 +68,18 @@ if ( ! function_exists('rel2abs'))
         return $scheme.'://'.$abs;
     }
 }
+
+if ( ! function_exists('arr_where'))
+{
+    /**
+     * Filter the array using the given callback.
+     *
+     * @param  array  $array
+     * @param  callable  $callback
+     * @return array
+     */
+    function arr_where($array, callable $callback)
+    {
+        return array_filter($array, $callback, ARRAY_FILTER_USE_BOTH);
+    }
+}

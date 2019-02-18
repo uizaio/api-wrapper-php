@@ -24,7 +24,7 @@ trait Delete {
         $params = $this->serializeParameters();
         $url = static::resourceUrl();
         $response = static::_staticRequest('DELETE', $url, $params);
-        $this->refreshFrom($response->json);
+        $this->refreshFrom($response->body);
         $this->setLastResponse($response);
 
         return $this;
