@@ -2,22 +2,23 @@
 
 namespace Uiza;
 
-class Storage extends Base
+class Storage extends ApiResource
 {
-    use \Uiza\ApiOperation\Request;
     use \Uiza\ApiOperation\Create;
-    use \Uiza\ApiOperation\All;
+    use \Uiza\ApiOperation\Retrieve;
+    use \Uiza\ApiOperation\Update;
+    use \Uiza\ApiOperation\Delete;
 
     /**
      * @return string The endpoint URL for the given class.
      */
     public static function classUrl()
     {
-        return "/media/entity";
+        return "/media/storage";
     }
 
     public static function resourceUrl()
     {
-        return self::getBaseUrl() . self::classUrl();
+        return Base::getBaseUrl() . self::classUrl();
     }
 }
