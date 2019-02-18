@@ -44,7 +44,7 @@ class Entity extends ApiResource
     public static function getStatusPublish($id, $params = [])
     {
         $params += ['id' => $id];
-        self::_validateParams('Get Status Publish', $params);
+        self::_validateParams('GetStatusPublish', $params);
         $url = static::resourceUrl() . '/publish/status';
         $response = static::_staticRequest('GET', $url, $params);
 
