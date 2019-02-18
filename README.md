@@ -127,10 +127,9 @@ Uiza\Category::retrieve('key ... ');
 
 ````
 $listCategory = Uiza\Category::all();
-````
+
 // or
 
-````
 $listCategory = Uiza\Category::list();
 ````
 
@@ -167,4 +166,15 @@ $params = [
 ];
 
 Uiza\Category::createRelation($params);
+````
+
+### Delete Category Relation
+
+````
+$params = [
+    "entityId" => "16ab25d3-fd0f-4568-8aa0-0339bbfd674f",
+    "metadataIds" => ["095778fa-7e42-45cc-8a0e-6118e540b61d","e00586b9-032a-46a3-af71-d275f01b03cf"]
+];
+
+Uiza\Category::deleteRelation($params);
 ````

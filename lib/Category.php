@@ -52,4 +52,13 @@ class Category extends ApiResource
 
         return $instance;
     }
+
+    public static function deleteRelation($params = [])
+    {
+        self::_validateParams('DeleteRelation', $params);
+        $url = Base::getBaseUrl() . 'media/entity/related/metadata';
+        $response = static::_staticRequest('DELETE', $url, $params);
+
+        return $response;
+    }
 }
