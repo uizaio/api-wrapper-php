@@ -17,7 +17,6 @@ trait All
         $url = static::resourceUrl();
         $response = static::_staticRequest('GET', $url, $params);
 
-        $response = static::_staticRequest('GET', $url, $params);
         if ($convertObj) {
             $newResponse = new Collection();
             foreach ($response->body->data as $key => $value) {
