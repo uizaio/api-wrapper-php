@@ -136,13 +136,12 @@ $listCategory = Uiza\Category::list();
 ### Update Category
 
 ````
-$category = Uiza\Category::retrieve('key ... ');
-$category->name = "Name category change";
-$category->save();
+$params = [
+    "name" => "Folder edited",
+    "type" => "folder",
+];
 
-// or
-
-Uiza\Category::update('key ..', ['name' => 'Name change']);
+Uiza\Category::update('key ..', $params);
 
 ````
 
@@ -177,4 +176,54 @@ $params = [
 ];
 
 Uiza\Category::deleteRelation($params);
+````
+
+## Storage
+
+### Add Storage
+````
+$params = [
+    "name" => "FTP Uiza",
+    "description" => "FTP of Uiza, use for transcode",
+    "storageType" => "ftp",
+    "host" => "ftp-example.uiza.io",
+    "username" => "uiza",
+    "password" => "=59x@LPsd+w7qW",
+    "port":21
+];
+
+Uiza\Storage::create($params);
+````
+
+### Retrieve Storage
+
+````
+Uiza\Storage::retrieve('key ... ');
+````
+
+### Update Storage
+
+````
+$params = [
+    "name" => "FTP Uiza",
+    "description" => "FTP of Uiza, use for transcode",
+    "storageType" => "ftp",
+    "host" => "ftp-example.uiza.io",
+    "username" => "uiza",
+    "password" => "=5;'9x@LPsd+w7qW",
+    "port" => 21
+];
+
+Uiza\Storage::update('key ..', $params);
+````
+
+### Remove Storage
+
+````
+$category = Uiza\Storage::retrieve('key ... ');
+$category->destroy();
+
+// or
+
+Uiza\Storage::delete('key ...');
 ````
