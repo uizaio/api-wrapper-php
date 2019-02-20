@@ -1,5 +1,11 @@
 # Uiza
+----
+## Introduction
+This is documents the public API for Uiza version 3.0.
 
+The Uiza API is organized around RESTful standard.
+Our API has predictable, resource-oriented URLs, and uses HTTP response codes to indicate API errors.
+JSON is returned by all API responses, including errors, although our API libraries convert responses to appropriate language-specific objects.
 ----
 ## Requirements
 PHP 5.3.0 and later.
@@ -22,7 +28,7 @@ composer require uiza/uiza-php
 require __DIR__."/../vendor/autoload.php";
 ````
 
-### Setup
+### Set the API Key for your project
 
 ````
 Uiza\Base::setApiSubdomain('your-subdomain');
@@ -30,200 +36,17 @@ Uiza\Base::setApiKey('your-api-key');
 ````
 
 ## Entity
+These below APIs used to take action with your media files (we called Entity).
 
-### Create entity.
-
-````
-$params = [
-    'name' => 'Name entity',
-    'url' => 'http://google.com,
-    'inputType' => 'http',
-];
-
-$entity = Uiza\Entity::create($params);
-````
-
-### Retrieve entity
-
-````
-Uiza\Entity::retrieve('key ... ');
-````
-
-### List entity.
-
-````
-$listEntity = Uiza\Entity::all();
-````
-
-### Update entity.
-
-````
-$entity = Uiza\Entity::retrieve('key ... ');
-$entity->name = "Name change";
-$entity->save();
-
-// or
-
-Uiza\Entity::update('key ..', ['name' => 'Name change']);
-
-````
-
-### Delete entity
-
-````
-$entity = Uiza\Entity::retrieve('key ... ');
-$entity->destroy();
-
-// or
-
-Uiza\Entity::delete('key ...');
-````
-
-### Search entity.
-
-````
-$entity = Uiza\Entity::search(['keyword' => 'sample']);
-````
-
-### Publish entity.
-
-````
-$entity = Uiza\Entity::publish(['id' => 'key ..']);
-````
-
-### Get Status Pulblish
-
-````
-Uiza\Entity::getStatusPublish('key ...');
-````
-
-### Get AWS Upload Key
-
-````
-Uiza\Entity::getAWSUploadKey();
-````
+See details [here]
 
 ## Category
+Category has been splits into 3 types: `folder`, `playlist` and `tag`. These will make the management of entity more easier.
 
-### Create Category
+See details [here]
 
-````
-$params = [
-    "name" => "Folder sample",
-    "type" => "folder",
-    "description" => "Folder description",
-];
+##Storage
+You can add your storage (`FTP`, `AWS S3`) with UIZA.
+After synced, you can select your content easier from your storage to [create entity](https://docs.uiza.io/#create-entity).
 
-Uiza\Category::create($params);
-````
-
-### Retrieve Category
-
-````
-Uiza\Category::retrieve('key ... ');
-````
-
-### Retrieve Category List
-
-````
-$listCategory = Uiza\Category::all();
-
-// or
-
-$listCategory = Uiza\Category::list();
-````
-
-### Update Category
-
-````
-$params = [
-    "name" => "Folder edited",
-    "type" => "folder",
-];
-
-Uiza\Category::update('key ..', $params);
-
-````
-
-### Delete entity
-
-````
-$category = Uiza\Category::retrieve('key ... ');
-$category->destroy();
-
-// or
-
-Uiza\Category::delete('key ...');
-````
-
-### Create Category Relation
-
-````
-$params = [
-    "entityId" => "16ab25d3-fd0f-4568-8aa0-0339bbfd674f",
-    "metadataIds" => ["095778fa-7e42-45cc-8a0e-6118e540b61d","e00586b9-032a-46a3-af71-d275f01b03cf"]
-];
-
-Uiza\Category::createRelation($params);
-````
-
-### Delete Category Relation
-
-````
-$params = [
-    "entityId" => "16ab25d3-fd0f-4568-8aa0-0339bbfd674f",
-    "metadataIds" => ["095778fa-7e42-45cc-8a0e-6118e540b61d","e00586b9-032a-46a3-af71-d275f01b03cf"]
-];
-
-Uiza\Category::deleteRelation($params);
-````
-
-## Storage
-
-### Add Storage
-````
-$params = [
-    "name" => "FTP Uiza",
-    "description" => "FTP of Uiza, use for transcode",
-    "storageType" => "ftp",
-    "host" => "ftp-example.uiza.io",
-    "username" => "uiza",
-    "password" => "=59x@LPsd+w7qW",
-    "port":21
-];
-
-Uiza\Storage::create($params);
-````
-
-### Retrieve Storage
-
-````
-Uiza\Storage::retrieve('key ... ');
-````
-
-### Update Storage
-
-````
-$params = [
-    "name" => "FTP Uiza",
-    "description" => "FTP of Uiza, use for transcode",
-    "storageType" => "ftp",
-    "host" => "ftp-example.uiza.io",
-    "username" => "uiza",
-    "password" => "=5;'9x@LPsd+w7qW",
-    "port" => 21
-];
-
-Uiza\Storage::update('key ..', $params);
-````
-
-### Remove Storage
-
-````
-$category = Uiza\Storage::retrieve('key ... ');
-$category->destroy();
-
-// or
-
-Uiza\Storage::delete('key ...');
-````
+See details [here]
