@@ -46,11 +46,7 @@ class Category extends ApiResource
         $url = Base::getBaseUrl() . 'media/entity/related/metadata';
         $response = static::_staticRequest('POST', $url, $params);
 
-        $instance = new static;
-        $instance->refreshFrom($response->body);
-        $instance->setLastResponse($response);
-
-        return $instance;
+        return $response;
     }
 
     public static function deleteRelation($params = [])
