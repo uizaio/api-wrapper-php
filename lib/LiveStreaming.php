@@ -2,22 +2,20 @@
 
 namespace Uiza;
 
-class LiveStreaming extends Base
+class LiveStreaming extends ApiResource
 {
-    use \Uiza\ApiOperation\Request;
     use \Uiza\ApiOperation\Create;
-    use \Uiza\ApiOperation\All;
 
     /**
      * @return string The endpoint URL for the given class.
      */
     public static function classUrl()
     {
-        return "/media/entity";
+        return "/live/entity";
     }
 
     public static function resourceUrl()
     {
-        return self::getBaseUrl() . self::classUrl();
+        return Base::getBaseUrl() . self::classUrl();
     }
 }
