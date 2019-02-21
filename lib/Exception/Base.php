@@ -26,16 +26,26 @@ class Base extends \Exception
     {
         return $this->httpStatus;
     }
+
     public function getHttpBody()
     {
         return $this->httpBody;
     }
+
     public function getJsonBody()
     {
         return $this->jsonBody;
     }
+
     public function getHttpHeaders()
     {
         return $this->httpHeaders;
+    }
+
+    public function __toString()
+    {
+        $message = explode("\n", parent::__toString());
+
+        return implode("\n", $message);
     }
 }

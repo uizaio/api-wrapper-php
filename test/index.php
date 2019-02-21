@@ -2,7 +2,8 @@
 
 require __DIR__."/../vendor/autoload.php";
 
-Uiza\Base::setApiKey('');
+Uiza\Base::setApiSubdomain('your-api-subdomain');
+Uiza\Base::setApiKey('your-api-key');
 
 $listEntity = Uiza\Entity::all();
 var_dump($listEntity);
