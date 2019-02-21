@@ -38,15 +38,15 @@ Uiza\Base::setApiKey('your-api-key');
 ## Entity
 These below APIs used to take action with your media files (we called Entity).
 
-See details [here]
+See details [here](https://github.com/uizaio/api-wrapper-php/blob/develop/doc/Entity.md).
 
 ## Category
 Category has been splits into 3 types: `folder`, `playlist` and `tag`. These will make the management of entity more easier.
 
-See details [here]
+See details [here](https://github.com/uizaio/api-wrapper-php/blob/develop/doc/Category.md).
 
 ##Storage
 You can add your storage (`FTP`, `AWS S3`) with UIZA.
 After synced, you can select your content easier from your storage to [create entity](https://docs.uiza.io/#create-entity).
 
-See details [here]
+See details [here](https://github.com/uizaio/api-wrapper-php/blob/develop/doc/Storage.md).

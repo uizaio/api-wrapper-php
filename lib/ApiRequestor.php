@@ -126,24 +126,28 @@ class ApiRequestor
                 $response = $this->httpClient()->get($absUrl, [
                     'query' => $params,
                     'headers' => $combinedHeaders,
+                    'http_errors' => false
                 ]);
                 break;
             case 'POST':
                 $response = $this->httpClient()->post($absUrl, [
                     \GuzzleHttp\RequestOptions::JSON => $params,
                     'headers' => $combinedHeaders,
+                    'http_errors' => false
                 ]);
                 break;
             case 'PUT':
                 $response = $this->httpClient()->put($absUrl, [
                     \GuzzleHttp\RequestOptions::JSON => $params,
                     'headers' => $combinedHeaders,
+                    'http_errors' => false
                 ]);
                 break;
             case 'DELETE':
                 $response = $this->httpClient()->delete($absUrl, [
                     \GuzzleHttp\RequestOptions::JSON => $params,
                     'headers' => $combinedHeaders,
+                    'http_errors' => false
                 ]);
                 break;
             default:
@@ -153,25 +157,26 @@ class ApiRequestor
         $pureContent = $response->getBody()->getContents();
         $jsonContent = json_decode($pureContent);
 
-        $this->handleErrorHttp($response->getStatusCode());
+        $this->handleErrorHttp($response->getStatusCode(), $response->getReasonPhrase());
         $this->handleErrorCode($jsonContent);
 
         return [$jsonContent, $jsonContent->code, $combinedHeaders, $pureContent];
     }
 
-    private function handleErrorHttp($code)
+    private function handleErrorHttp($statusCode, $reasonPhrase)
     {
         $errors = [
             400 => 'The request was unacceptable, often due to missing a required parameter',
-            401 => 'Unauthorized',
+            401 => 'No valid API key provided.',
             404 => 'The requested resource doesn\'t exist.',
             422 => 'The syntax of the request is correct (often cause of wrong parameter)',
             500 => 'We had a problem with our server. Try again later.',
             503 => 'The server is overloaded or down for maintenance.',
         ];
 
-        if ($code != 200) {
-            throw new \Uiza\Exception\ErrorRequest($code, $errors[$code]);
+        if ($statusCode != 200) {
+            $messageError = $errors[$statusCode];
+            throw new \Uiza\Exception\ErrorRequest($statusCode, $reasonPhrase, $messageError);
         }
     }
 
