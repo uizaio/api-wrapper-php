@@ -2,7 +2,8 @@
 
 namespace Uiza\Exception;
 
-class ErrorRequest extends Base {
+class ErrorResponse extends Base
+{
      public function __construct(
         $statusCode,
         $reasonPhrase,
