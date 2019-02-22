@@ -84,8 +84,8 @@ See details [here](https://docs.uiza.io/#publish-entity-to-cdn).
 $entity = Uiza\Entity::publish(['id' => 'key ..']);
 ````
 
-### Get Status Pulblish
-Get status publish
+### Get Status Publish
+Publish entity to CDN, use for streaming.
 
 See details [here](https://docs.uiza.io/#get-status-publish).
 ````

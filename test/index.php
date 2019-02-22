@@ -2,7 +2,7 @@
 
 require __DIR__."/../vendor/autoload.php";
 
-Uiza\Base::setApiSubdomain('your-api-subdomain');
+Uiza\Base::setWorkspaceApiDomain('your-workspace-api-domain');
 Uiza\Base::setApiKey('your-api-key');
 
 $listEntity = Uiza\Entity::all();
