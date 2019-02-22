@@ -157,15 +157,15 @@ class ApiRequestor
         $pureContent = $response->getBody()->getContents();
         $jsonContent = json_decode($pureContent);
 
-        $this->handleErrorHttp($response->getStatusCode(), $response->getReasonPhrase());
+        $this->handleErrorResponse($response->getStatusCode(), $response->getReasonPhrase());
         $this->handleErrorCode($jsonContent);
 
         return [$jsonContent, $jsonContent->code, $combinedHeaders, $pureContent];
     }
 
-    private function handleErrorHttp($statusCode, $reasonPhrase)
+    private function handleErrorResponse($statusCode, $reasonPhrase)
     {
-        $errors = [
+        $messageError = [
             400 => 'The request was unacceptable, often due to missing a required parameter',
             401 => 'No valid API key provided.',
             404 => 'The requested resource doesn\'t exist.',
@@ -173,10 +173,36 @@ class ApiRequestor
             500 => 'We had a problem with our server. Try again later.',
             503 => 'The server is overloaded or down for maintenance.',
         ];
+        $messageError4xx = 'The error seems to have been caused by the client.';
+        $messageError5xx = 'The server is aware that it has encountered an error.';
 
-        if ($statusCode != 200) {
-            $messageError = $errors[$statusCode];
-            throw new \Uiza\Exception\ErrorRequest($statusCode, $reasonPhrase, $messageError);
+        switch ($statusCode) {
+            case 400:
+                throw new \Uiza\Exception\BadRequestError($statusCode, $reasonPhrase, $messageError[400]);
+                break;
+            case 401:
+                throw new \Uiza\Exception\UnauthorizedError($statusCode, $reasonPhrase, $messageError[401]);
+                break;
+            case 404:
+                throw new \Uiza\Exception\NotFoundError($statusCode, $reasonPhrase, $messageError[404]);
+                break;
+            case 422:
+                throw new \Uiza\Exception\UnprocessableError($statusCode, $reasonPhrase, $messageError[422]);
+                break;
+            case 500:
+                throw new \Uiza\Exception\InternalServerError($statusCode, $reasonPhrase, $messageError[500]);
+                break;
+            case 503:
+                throw new \Uiza\Exception\ServiceUnavailableError($statusCode, $reasonPhrase, $messageError[503]);
+                break;
+            default:
+                if ($statusCode / 100 ==  4) {
+                    throw new \Uiza\Exception\ClientError($statusCode, $reasonPhrase, $messageError4xx);
+                }
+                if ($statusCode / 100 ==  5) {
+                    throw new \Uiza\Exception\ServerError($statusCode, $reasonPhrase, $messageError5xx);
+                }
+                break;
         }
     }
 
