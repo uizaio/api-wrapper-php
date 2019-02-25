@@ -1,4 +1,6 @@
 {
+    "name": "uiza/uiza-php",
+    "description": "See https://docs.uiza.io for details",
     "require": {
         "monolog/monolog": "^1.24",
         "guzzlehttp/guzzle": "^6.3"
