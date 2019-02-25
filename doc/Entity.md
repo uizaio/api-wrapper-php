@@ -34,6 +34,10 @@ See details [here](https://docs.uiza.io/#list-all-entities).
 
 ````
 $listEntity = Uiza\Entity::all();
+
+// or
+
+$listEntity = Uiza\Entity::list();
 ````
 
 ### Update entity.
