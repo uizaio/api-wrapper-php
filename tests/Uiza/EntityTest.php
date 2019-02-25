@@ -174,7 +174,7 @@ class EntityTest extends TestBase
         $id = '42ceb1ab-18ef-4f2e-b076-14299756d182';
         $entity = Entity::delete($id);
 
-        $this->assertEquals($entity->body->data->id, $return['data']['id']);
+        $this->assertEquals($entity->id, $return['data']['id']);
     }
 
     public function testSearch()
@@ -239,7 +239,7 @@ class EntityTest extends TestBase
 
         $entity = Entity::publish(['id' => '42ceb1ab-18ef-4f2e-b076-14299756d182']);
 
-        $this->assertEquals($entity->body->data->id, $return['data']['id']);
+        $this->assertEquals($entity->id, $return['data']['id']);
     }
 
     public function testGetStatusPublish()
@@ -259,7 +259,7 @@ class EntityTest extends TestBase
         $id = '42ceb1ab-18ef-4f2e-b076-14299756d182';
         $entity = Entity::getStatusPublish($id);
 
-        $this->assertEquals($entity->body->data->progress, $return['data']['progress']);
+        $this->assertEquals($entity->progress, $return['data']['progress']);
     }
 
     public function testGetAWSUploadKey()

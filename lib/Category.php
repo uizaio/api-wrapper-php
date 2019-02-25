@@ -39,4 +39,22 @@ class Category extends ApiResource
             }
         }
     }
+
+    public static function createRelation($params = [])
+    {
+        self::_validateParams('CreateRelation', $params);
+        $url = Base::getBaseUrl() . 'media/entity/related/metadata';
+        $response = static::_staticRequest('POST', $url, $params);
+
+        return $response;
+    }
+
+    public static function deleteRelation($params = [])
+    {
+        self::_validateParams('DeleteRelation', $params);
+        $url = Base::getBaseUrl() . 'media/entity/related/metadata';
+        $response = static::_staticRequest('DELETE', $url, $params);
+
+        return $response;
+    }
 }

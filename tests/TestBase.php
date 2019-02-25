@@ -9,7 +9,7 @@ class TestBase extends TestCase
     protected function setUp()
     {
         \Uiza\Base::setApiKey('api key test');
-        \Uiza\Base::setApiSubdomain('apiwrapper');
+        \Uiza\Base::setWorkspaceApiDomain('apiwrapper');
 
         // Save original values so that we can restore them after running tests
         $this->apiBase = \Uiza\Base::$apiBase;

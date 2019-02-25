@@ -8,7 +8,7 @@ use Monolog\Handler\FirePHPHandler;
 
 class Base {
 
-    public static $apiSubdomain;
+    public static $workspaceApiDomain;
 
     public static $apiKey;
 
@@ -33,10 +33,10 @@ class Base {
         return self::$apiKey;
     }
 
-    public static function setApiSubdomain(string $apiSubdomain)
+    public static function setWorkspaceApiDomain(string $workspaceApiDomain)
     {
-        self::$apiSubdomain = $apiSubdomain;
-        self::$apiBase = 'https://' . self::$apiSubdomain . '.uiza.co';
+        self::$workspaceApiDomain = $workspaceApiDomain;
+        self::$apiBase = 'https://' . self::$workspaceApiDomain . '.uiza.co';
     }
 
     public static function getBaseUrl()

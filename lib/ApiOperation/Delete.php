@@ -15,8 +15,11 @@ trait Delete {
         $url = static::resourceUrl();
         $params = ['id' => $id];
         $response = static::_staticRequest('DELETE', $url, $params);
+        $instance = new static($id);
+        $instance->refreshFrom($response->body);
+        $instance->setLastResponse($response);
 
-        return $response;
+        return $instance;
     }
 
     public function destroy()

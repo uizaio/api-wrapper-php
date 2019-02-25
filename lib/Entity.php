@@ -37,18 +37,24 @@ class Entity extends ApiResource
         self::_validateParams('Publish', $params);
         $url = static::resourceUrl() . '/publish';
         $response = static::_staticRequest('POST', $url, $params);
+        $instance = new static($params['id']);
+        $instance->refreshFrom($response->body);
+        $instance->setLastResponse($response);
 
-        return $response;
+        return $instance;
     }
 
     public static function getStatusPublish($id, $params = [])
     {
         $params += ['id' => $id];
-        self::_validateParams('Get Status Publish', $params);
+        self::_validateParams('GetStatusPublish', $params);
         $url = static::resourceUrl() . '/publish/status';
         $response = static::_staticRequest('GET', $url, $params);
+        $instance = new static($id);
+        $instance->refreshFrom($response->body);
+        $instance->setLastResponse($response);
 
-        return $response;
+        return $instance;
     }
 
     public static function getAWSUploadKey($params = [])
