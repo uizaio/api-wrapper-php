@@ -68,4 +68,10 @@ These APIs used to create and manage live streaming event.
 * When a Live is not start : it's named as `Event`.
 * When have an Event , you can start it : it's named as `Feed`.
 
-See details [here](https://docs.uiza.io/#live-streaming).
+See details [here](https://github.com/uizaio/api-wrapper-php/blob/develop/doc/LiveStreaming.md).
+
+## Callback
+
+Callback used to retrieve an information for Uiza to your server, so you can have a trigger notice about an entity is upload completed and .
+
+See details [here](https://github.com/uizaio/api-wrapper-php/blob/develop/doc/Callback.md).
