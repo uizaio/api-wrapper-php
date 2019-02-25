@@ -18,4 +18,17 @@ class LiveStreaming extends ApiResource
     {
         return Base::getBaseUrl() . self::classUrl();
     }
+
+    public static function startFeed($params = [])
+    {
+        self::_validateParams('StartFeed', $params);
+        $url = static::resourceUrl() . '/feed';
+        $response = static::_staticRequest('POST', $url, $params);
+
+        $instance = new static($params['id']);
+        $instance->refreshFrom($response->body);
+        $instance->setLastResponse($response);
+
+        return $instance;
+    }
 }
