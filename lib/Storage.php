@@ -21,4 +21,14 @@ class Storage extends ApiResource
     {
         return Base::getBaseUrl() . self::classUrl();
     }
+
+    public static function add($params = null, $options = null)
+    {
+        return self::create($params, $options);
+    }
+
+    public static function remove($id, $params = null)
+    {
+        return self::delete($id, $params);
+    }
 }
