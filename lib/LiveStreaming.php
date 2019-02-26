@@ -5,6 +5,8 @@ namespace Uiza;
 class LiveStreaming extends ApiResource
 {
     use \Uiza\ApiOperation\Create;
+    use \Uiza\ApiOperation\Retrieve;
+    use \Uiza\ApiOperation\Update;
 
     /**
      * @return string The endpoint URL for the given class.
