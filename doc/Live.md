@@ -26,7 +26,7 @@ $params = [
     "resourceMode" => "single"
 ];
 
-Uiza\LiveStreaming::create($params);
+Uiza\Live::create($params);
 ````
 
 ### Retrieve a live event
@@ -36,7 +36,7 @@ Retrieves the details of an existing event. You need only provide the unique ide
 See details [here](https://docs.uiza.io/#retrieve-a-live-event).
 
 ````
-Uiza\LiveStreaming::retrieve('key ... ');
+Uiza\Live::retrieve('key ... ');
 ````
 
 ### Update a live event
@@ -53,7 +53,7 @@ $params = [
     "dvr" => 1,
     "resourceMode" => "single"
 ];
-Uiza\LiveStreaming::update('key ..', $params);
+Uiza\Live::update('key ..', $params);
 ````
 
 ### Start a live feed
@@ -63,7 +63,7 @@ These API use to start a live event that has been create success. The Live chann
 See details [here](https://docs.uiza.io/#start-a-live-feed).
 
 ````
-Uiza\LiveStreaming::startFeed(['id' => 'your entityId...'])
+Uiza\Live::startFeed(['id' => 'your entityId...'])
 ````
 
 ### Get view of live feed
@@ -73,7 +73,7 @@ This API use to get a live view status . This view only show when event has been
 See details [here](https://docs.uiza.io/#get-view-of-live-feed).
 
 ````
-Uiza\LiveStreaming::getView(['id' => 'your entityId...'])
+Uiza\Live::getView(['id' => 'your entityId...'])
 ````
 
 ### Stop a live feed
@@ -83,7 +83,7 @@ Stop live event
 See details [here](https://docs.uiza.io/#stop-a-live-feed).
 
 ````
-Uiza\LiveStreaming::stopFeed(['id' => 'your entityId...'])
+Uiza\Live::stopFeed(['id' => 'your entityId...'])
 ````
 
 ### List all recorded files
@@ -93,7 +93,7 @@ Retrieves list of recorded file after streamed (only available when your live ev
 See details [here](https://docs.uiza.io/#list-all-recorded-files).
 
 ````
-Uiza\LiveStreaming::listRecorded();
+Uiza\Live::listRecorded();
 ````
 
 ### Delete a record file
@@ -113,5 +113,5 @@ Convert recorded file into VOD entity. After converted, your file can be stream 
 See details [here](https://docs.uiza.io/#convert-into-vod).
 
 ````
-Uiza\LiveStreaming::convertToVOD(['id' => 'your entityId...'])
+Uiza\Live::convertToVOD(['id' => 'your entityId...'])
 ````
