@@ -2,11 +2,12 @@
 
 namespace Uiza;
 
-class Callback extends Base
+class Callback extends ApiResource
 {
-    use \Uiza\ApiOperation\Request;
     use \Uiza\ApiOperation\Create;
-    use \Uiza\ApiOperation\All;
+    use \Uiza\ApiOperation\Retrieve;
+    use \Uiza\ApiOperation\Update;
+    use \Uiza\ApiOperation\Delete;
 
     /**
      * @return string The endpoint URL for the given class.
@@ -18,6 +19,6 @@ class Callback extends Base
 
     public static function resourceUrl()
     {
-        return self::getBaseUrl() . self::classUrl();
+        return Base::getBaseUrl() . self::classUrl();
     }
 }
