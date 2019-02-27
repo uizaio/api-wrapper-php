@@ -2,7 +2,7 @@
 
 namespace Uiza;
 
-class LiveStreaming extends ApiResource
+class Live extends ApiResource
 {
     use \Uiza\ApiOperation\Create;
     use \Uiza\ApiOperation\Retrieve;
