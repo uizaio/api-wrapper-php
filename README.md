@@ -75,3 +75,9 @@ See details [here](https://github.com/uizaio/api-wrapper-php/blob/develop/doc/Li
 Callback used to retrieve an information for Uiza to your server, so you can have a trigger notice about an entity is upload completed and .
 
 See details [here](https://github.com/uizaio/api-wrapper-php/blob/develop/doc/Callback.md).
+
+## Analytic
+Monitor the four key dimensions of video QoS: playback failures, startup time, rebuffering, and video quality.
+These 15 metrics help you track playback performance, so your team can know exactly what’s going on.
+
+See details [here](https://github.com/uizaio/api-wrapper-php/blob/develop/doc/Analytic.md).
