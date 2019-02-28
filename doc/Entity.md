@@ -15,7 +15,7 @@ $params = [
     'inputType' => 'http',
 ];
 
-$entity = Uiza\Entity::create($params);
+Uiza\Entity::create($params);
 ````
 
 ### Retrieve entity
@@ -33,11 +33,11 @@ Get list of entities including all detail.
 See details [here](https://docs.uiza.io/#list-all-entities).
 
 ````
-$listEntity = Uiza\Entity::all();
+Uiza\Entity::all(['publishToCdn' => 'queue']);
 
 // or
 
-$listEntity = Uiza\Entity::list();
+Uiza\Entity::list(['publishToCdn' => 'queue']);
 ````
 
 ### Update entity.
@@ -51,9 +51,11 @@ $entity->name = "Name change";
 $entity->save();
 
 // or
+$params = [
+    'name' => 'Name change'
+];
 
-Uiza\Entity::update('key ..', ['name' => 'Name change']);
-
+Uiza\Entity::update('key ..', $params);
 ````
 
 ### Delete entity
@@ -76,7 +78,7 @@ Search entity base on keyword entered.
 See details [here](https://docs.uiza.io/#search-entity).
 
 ````
-$entity = Uiza\Entity::search(['keyword' => 'sample']);
+Uiza\Entity::search(['keyword' => 'sample']);
 ````
 
 ### Publish entity to CDN
@@ -85,7 +87,7 @@ Publish entity to CDN, use for streaming.
 See details [here](https://docs.uiza.io/#publish-entity-to-cdn).
 
 ````
-$entity = Uiza\Entity::publish(['id' => 'key ..']);
+Uiza\Entity::publish(['id' => 'key ..']);
 ````
 
 ### Get Status Publish
