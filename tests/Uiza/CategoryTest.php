@@ -3,16 +3,7 @@
 namespace Tests\Uiza;
 
 use \Tests\TestBase;
-use \Uiza\ApiRequestor;
-use \Uiza\ApiResponse;
 use \Uiza\Category;
-use GuzzleHttp\Client;
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Psr7\Response;
-use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\Exception\RequestException;
-
 
 class CategoryTest extends TestBase
 {
@@ -20,19 +11,6 @@ class CategoryTest extends TestBase
     protected function setUp()
     {
         parent::setUp();
-    }
-
-    private function mockData($data)
-    {
-        // Create a mock subscriber and queue two responses.
-        $mock = new MockHandler([
-            new Response(200, [], json_encode($data)),         // Use response object
-        ]);
-
-        $handlerStack = HandlerStack::create($mock);
-        $client = new Client(['handler' => $handlerStack]);
-
-        ApiRequestor::setHttpClient($client);
     }
 
     public function testCreate()
@@ -61,6 +39,44 @@ class CategoryTest extends TestBase
         $this->assertInstanceOf(Category::class, $category);
 
         $this->assertEquals($category->id, $return['data']['id']);
+    }
+
+    public function testCreateError()
+    {
+        $statusCode = $this->statusCode();
+
+        foreach ($statusCode as $key => $value) {
+            $this->mockDataError($key);
+
+            try {
+                $params = [
+                    "name" => "Folder sample",
+                    "type" => "folder",
+                    "description" => "Folder description",
+                    "orderNumber" => 1,
+                    "icon" => "https://exemple.com/icon.png"
+                ];
+
+                $category = Category::create($params);
+
+            } catch (\Uiza\Exception\BadRequestError $e) {
+                $this->assertEquals($e->statusCode, 400);
+            } catch (\Uiza\Exception\UnauthorizedError $e) {
+                $this->assertEquals($e->statusCode, 401);
+            } catch (\Uiza\Exception\NotFoundError $e) {
+                $this->assertEquals($e->statusCode, 404);
+            } catch (\Uiza\Exception\UnprocessableError $e) {
+                $this->assertEquals($e->statusCode, 422);
+            } catch (\Uiza\Exception\InternalServerError $e) {
+                $this->assertEquals($e->statusCode, 500);
+            } catch (\Uiza\Exception\ServiceUnavailableError $e) {
+                $this->assertEquals($e->statusCode, 503);
+            } catch (\Uiza\Exception\ClientError $e) {
+                $this->assertEquals($e->statusCode, $key);
+            } catch (\Uiza\Exception\ServerError $e) {
+                $this->assertEquals($e->statusCode, $key);
+            }
+        }
     }
 
     public function testRetrieve()
@@ -93,7 +109,38 @@ class CategoryTest extends TestBase
         $this->assertEquals($category->id, $id);
     }
 
-    public function testRetrieveList()
+    public function testRetrieveError()
+    {
+        $statusCode = $this->statusCode();
+
+        foreach ($statusCode as $key => $value) {
+            $this->mockDataError($key);
+
+            try {
+                $id = 'f932aa79-852a-41f7-9adc-19935034f944';
+                $category = Category::retrieve($id);
+
+            } catch (\Uiza\Exception\BadRequestError $e) {
+                $this->assertEquals($e->statusCode, 400);
+            } catch (\Uiza\Exception\UnauthorizedError $e) {
+                $this->assertEquals($e->statusCode, 401);
+            } catch (\Uiza\Exception\NotFoundError $e) {
+                $this->assertEquals($e->statusCode, 404);
+            } catch (\Uiza\Exception\UnprocessableError $e) {
+                $this->assertEquals($e->statusCode, 422);
+            } catch (\Uiza\Exception\InternalServerError $e) {
+                $this->assertEquals($e->statusCode, 500);
+            } catch (\Uiza\Exception\ServiceUnavailableError $e) {
+                $this->assertEquals($e->statusCode, 503);
+            } catch (\Uiza\Exception\ClientError $e) {
+                $this->assertEquals($e->statusCode, $key);
+            } catch (\Uiza\Exception\ServerError $e) {
+                $this->assertEquals($e->statusCode, $key);
+            }
+        }
+    }
+
+    public function testList()
     {
         $return = [
             'data' => [
@@ -135,9 +182,39 @@ class CategoryTest extends TestBase
 
         $this->mockData($return);
 
-        $categories = Category::all();
+        $categories = Category::list();
 
         $this->assertInternalType('array', $categories->body->data);
+    }
+
+    public function testListError()
+    {
+        $statusCode = $this->statusCode();
+
+        foreach ($statusCode as $key => $value) {
+            $this->mockDataError($key);
+
+            try {
+                $categories = Category::list();
+
+            } catch (\Uiza\Exception\BadRequestError $e) {
+                $this->assertEquals($e->statusCode, 400);
+            } catch (\Uiza\Exception\UnauthorizedError $e) {
+                $this->assertEquals($e->statusCode, 401);
+            } catch (\Uiza\Exception\NotFoundError $e) {
+                $this->assertEquals($e->statusCode, 404);
+            } catch (\Uiza\Exception\UnprocessableError $e) {
+                $this->assertEquals($e->statusCode, 422);
+            } catch (\Uiza\Exception\InternalServerError $e) {
+                $this->assertEquals($e->statusCode, 500);
+            } catch (\Uiza\Exception\ServiceUnavailableError $e) {
+                $this->assertEquals($e->statusCode, 503);
+            } catch (\Uiza\Exception\ClientError $e) {
+                $this->assertEquals($e->statusCode, $key);
+            } catch (\Uiza\Exception\ServerError $e) {
+                $this->assertEquals($e->statusCode, $key);
+            }
+        }
     }
 
     public function testUpdate()
@@ -169,6 +246,45 @@ class CategoryTest extends TestBase
         $this->assertEquals($category->id, $return['data']['id']);
     }
 
+    public function testUpdateError()
+    {
+        $statusCode = $this->statusCode();
+
+        foreach ($statusCode as $key => $value) {
+            $this->mockDataError($key);
+
+            try {
+                $id = '095778fa-7e42-45cc-8a0e-6118e540b61d';
+                $params = [
+                    "name" => "Folder edited",
+                    "type" => "folder",
+                    "description" => "Folder description new",
+                    "orderNumber" => 1,
+                    "icon" => "/exemple.com/icon_001.png"
+                ];
+
+                $category = Category::update($id, $params);
+
+            } catch (\Uiza\Exception\BadRequestError $e) {
+                $this->assertEquals($e->statusCode, 400);
+            } catch (\Uiza\Exception\UnauthorizedError $e) {
+                $this->assertEquals($e->statusCode, 401);
+            } catch (\Uiza\Exception\NotFoundError $e) {
+                $this->assertEquals($e->statusCode, 404);
+            } catch (\Uiza\Exception\UnprocessableError $e) {
+                $this->assertEquals($e->statusCode, 422);
+            } catch (\Uiza\Exception\InternalServerError $e) {
+                $this->assertEquals($e->statusCode, 500);
+            } catch (\Uiza\Exception\ServiceUnavailableError $e) {
+                $this->assertEquals($e->statusCode, 503);
+            } catch (\Uiza\Exception\ClientError $e) {
+                $this->assertEquals($e->statusCode, $key);
+            } catch (\Uiza\Exception\ServerError $e) {
+                $this->assertEquals($e->statusCode, $key);
+            }
+        }
+    }
+
     public function testDelete()
     {
         $return = [
@@ -186,6 +302,37 @@ class CategoryTest extends TestBase
         $category = Category::delete($id);
 
         $this->assertEquals($category->id, $return['data']['id']);
+    }
+
+    public function testDeleteError()
+    {
+        $statusCode = $this->statusCode();
+
+        foreach ($statusCode as $key => $value) {
+            $this->mockDataError($key);
+
+            try {
+                $id = '095778fa-7e42-45cc-8a0e-6118e540b61d';
+                $category = Category::delete($id);
+
+            } catch (\Uiza\Exception\BadRequestError $e) {
+                $this->assertEquals($e->statusCode, 400);
+            } catch (\Uiza\Exception\UnauthorizedError $e) {
+                $this->assertEquals($e->statusCode, 401);
+            } catch (\Uiza\Exception\NotFoundError $e) {
+                $this->assertEquals($e->statusCode, 404);
+            } catch (\Uiza\Exception\UnprocessableError $e) {
+                $this->assertEquals($e->statusCode, 422);
+            } catch (\Uiza\Exception\InternalServerError $e) {
+                $this->assertEquals($e->statusCode, 500);
+            } catch (\Uiza\Exception\ServiceUnavailableError $e) {
+                $this->assertEquals($e->statusCode, 503);
+            } catch (\Uiza\Exception\ClientError $e) {
+                $this->assertEquals($e->statusCode, $key);
+            } catch (\Uiza\Exception\ServerError $e) {
+                $this->assertEquals($e->statusCode, $key);
+            }
+        }
     }
 
     public function testCreateRelation()
@@ -227,6 +374,41 @@ class CategoryTest extends TestBase
         $this->assertEquals($categories->body->metadata->total, $return['metadata']['total']);
     }
 
+    public function testCreateRelationError()
+    {
+        $statusCode = $this->statusCode();
+
+        foreach ($statusCode as $key => $value) {
+            $this->mockDataError($key);
+
+            try {
+                $params = [
+                    "entityId" => "16ab25d3-fd0f-4568-8aa0-0339bbfd674f",
+                    "metadataIds" => ["095778fa-7e42-45cc-8a0e-6118e540b61d","e00586b9-032a-46a3-af71-d275f01b03cf"]
+                ];
+
+                $categories = Category::createRelation($params);
+
+            } catch (\Uiza\Exception\BadRequestError $e) {
+                $this->assertEquals($e->statusCode, 400);
+            } catch (\Uiza\Exception\UnauthorizedError $e) {
+                $this->assertEquals($e->statusCode, 401);
+            } catch (\Uiza\Exception\NotFoundError $e) {
+                $this->assertEquals($e->statusCode, 404);
+            } catch (\Uiza\Exception\UnprocessableError $e) {
+                $this->assertEquals($e->statusCode, 422);
+            } catch (\Uiza\Exception\InternalServerError $e) {
+                $this->assertEquals($e->statusCode, 500);
+            } catch (\Uiza\Exception\ServiceUnavailableError $e) {
+                $this->assertEquals($e->statusCode, 503);
+            } catch (\Uiza\Exception\ClientError $e) {
+                $this->assertEquals($e->statusCode, $key);
+            } catch (\Uiza\Exception\ServerError $e) {
+                $this->assertEquals($e->statusCode, $key);
+            }
+        }
+    }
+
     public function testDeleteRelation()
     {
         $return = [
@@ -259,5 +441,40 @@ class CategoryTest extends TestBase
 
         $this->assertInternalType('array', $categories->body->data);
         $this->assertEquals($categories->body->metadata->total, $return['metadata']['total']);
+    }
+
+    public function testDeleteRelationError()
+    {
+        $statusCode = $this->statusCode();
+
+        foreach ($statusCode as $key => $value) {
+            $this->mockDataError($key);
+
+            try {
+                $params = [
+                    "entityId" => "16ab25d3-fd0f-4568-8aa0-0339bbfd674f",
+                    "metadataIds" => ["095778fa-7e42-45cc-8a0e-6118e540b61d"]
+                ];
+
+                $categories = Category::deleteRelation($params);
+
+            } catch (\Uiza\Exception\BadRequestError $e) {
+                $this->assertEquals($e->statusCode, 400);
+            } catch (\Uiza\Exception\UnauthorizedError $e) {
+                $this->assertEquals($e->statusCode, 401);
+            } catch (\Uiza\Exception\NotFoundError $e) {
+                $this->assertEquals($e->statusCode, 404);
+            } catch (\Uiza\Exception\UnprocessableError $e) {
+                $this->assertEquals($e->statusCode, 422);
+            } catch (\Uiza\Exception\InternalServerError $e) {
+                $this->assertEquals($e->statusCode, 500);
+            } catch (\Uiza\Exception\ServiceUnavailableError $e) {
+                $this->assertEquals($e->statusCode, 503);
+            } catch (\Uiza\Exception\ClientError $e) {
+                $this->assertEquals($e->statusCode, $key);
+            } catch (\Uiza\Exception\ServerError $e) {
+                $this->assertEquals($e->statusCode, $key);
+            }
+        }
     }
 }
