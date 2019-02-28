@@ -196,10 +196,10 @@ class ApiRequestor
                 throw new \Uiza\Exception\ServiceUnavailableError($statusCode, $reasonPhrase, $messageError[503]);
                 break;
             default:
-                if ($statusCode / 100 ==  4) {
+                if (floor($statusCode / 100) ==  4) {
                     throw new \Uiza\Exception\ClientError($statusCode, $reasonPhrase, $messageError4xx);
                 }
-                if ($statusCode / 100 ==  5) {
+                if (floor($statusCode / 100) ==  5) {
                     throw new \Uiza\Exception\ServerError($statusCode, $reasonPhrase, $messageError5xx);
                 }
                 break;

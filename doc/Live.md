@@ -103,7 +103,7 @@ Delete a recorded file
 See details [here](https://docs.uiza.io/#delete-a-record-file).
 
 ````
-Uiza\Storage::delete('id record ...');
+Uiza\Live::delete('id record ...');
 ````
 
 ### Convert into VOD
