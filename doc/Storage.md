@@ -18,10 +18,10 @@ $params = [
     "host" => "ftp-example.uiza.io",
     "username" => "uiza",
     "password" => "=59x@LPsd+w7qW",
-    "port":21
+    "port" => 21
 ];
 
-Uiza\Storage::create($params);
+Uiza\Storage::add($params);
 ````
 
 ### Retrieve Storage
@@ -58,10 +58,5 @@ Remove storage that added to Uiza.
 See details [here](https://docs.uiza.io/#remove-storage).
 
 ````
-$category = Uiza\Storage::retrieve('key ... ');
-$category->destroy();
-
-// or
-
-Uiza\Storage::delete('key ...');
+Uiza\Storage::remove('key ...');
 ````

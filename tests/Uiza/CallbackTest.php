@@ -3,21 +3,15 @@
 namespace Tests\Uiza;
 
 use \Tests\TestBase;
-use \Uiza\Storage;
+use \Uiza\Callback;
 
-class StorageTest extends TestBase
+class CallbackTest extends TestBase
 {
-
-    protected function setUp()
-    {
-        parent::setUp();
-    }
-
-    public function testAdd()
+    public function testCreate()
     {
         $return = [
             'data' => [
-                'id' => '42ceb1ab-18ef-4f2e-b076-14299756d182',
+                'id' => '8b83886e-9cc3-4eab-9258-ebb16c0c73de',
             ],
             'version' => 3,
             'code' => 200,
@@ -27,23 +21,18 @@ class StorageTest extends TestBase
         $this->mockData($return);
 
         $params = [
-            "name" => "FTP Uiza",
-            "description" => "FTP of Uiza, use for transcode",
-            "storageType" => "ftp",
-            "host" => "ftp-example.uiza.io",
-            "username" => "uiza",
-            "password" => "=59x@LPsd+w7qW",
-            "port" => 21
+            "url" => "https://callback-url.uiza.co",
+            "method" => "POST"
         ];
 
-        $storage = Storage::create($params);
+        $callback = Callback::create($params);
 
-        $this->assertInstanceOf(Storage::class, $storage);
+        $this->assertInstanceOf(Callback::class, $callback);
 
-        $this->assertEquals($storage->id, $return['data']['id']);
+        $this->assertEquals($callback->id, $return['data']['id']);
     }
 
-    public function testAddError()
+    public function testCreateError()
     {
         $statusCode = $this->statusCode();
 
@@ -52,16 +41,11 @@ class StorageTest extends TestBase
 
             try {
                 $params = [
-                    "name" => "FTP Uiza",
-                    "description" => "FTP of Uiza, use for transcode",
-                    "storageType" => "ftp",
-                    "host" => "ftp-example.uiza.io",
-                    "username" => "uiza",
-                    "password" => "=59x@LPsd+w7qW",
-                    "port" => 21
+                    "url" => "https://callback-url.uiza.co",
+                    "method" => "POST"
                 ];
 
-                $storage = Storage::create($params);
+                $callback = Callback::create($params);
 
             } catch (\Uiza\Exception\BadRequestError $e) {
                 $this->assertEquals($e->statusCode, 400);
@@ -87,22 +71,16 @@ class StorageTest extends TestBase
     {
         $return = [
             'data' => [
-                'id' => '42ceb1ab-18ef-4f2e-b076-14299756d182',
-                "name" => "FTP Uiza",
-                "description" => "FTP of Uiza, use for transcode",
-                "storageType" => "ftp",
-                "usageType" => "input",
-                "bucket" => null,
-                "prefix" => null,
-                "host" => "ftp-exemple.uiza.io",
-                "awsAccessKey" => null,
-                "awsSecretKey" => null,
-                "username" => "uiza",
-                "password" => "=5;9x@LPsd+w7qW",
-                "region" => null,
-                "port" => 21,
-                "createdAt" => "2018-06-19T03:01:56.000Z",
-                "updatedAt" => "2018-06-19T03:01:56.000Z"
+                'id' => '8b83886e-9cc3-4eab-9258-ebb16c0c73de',
+                "url" => "https://callback-url.uiza.co",
+                "headersData" => null,
+                "jsonData" => [
+                  "text" => "example callback"
+                ],
+                "method" => "POST",
+                "status" => 1,
+                "createdAt" => "2018-06-23T01:27:08.000Z",
+                "updatedAt" => "2018-06-23T01:27:08.000Z"
             ],
             'version' => 3,
             'code' => 200,
@@ -111,11 +89,12 @@ class StorageTest extends TestBase
 
         $this->mockData($return);
 
-        $storage = Storage::retrieve('42ceb1ab-18ef-4f2e-b076-14299756d182');
+        $id = '8b83886e-9cc3-4eab-9258-ebb16c0c73de';
+        $callback = Callback::retrieve($id);
 
-        $this->assertInstanceOf(Storage::class, $storage);
+        $this->assertInstanceOf(Callback::class, $callback);
 
-        $this->assertEquals($storage->id, $return['data']['id']);
+        $this->assertEquals($callback->id, $id);
     }
 
     public function testRetrieveError()
@@ -126,7 +105,8 @@ class StorageTest extends TestBase
             $this->mockDataError($key);
 
             try {
-                $storage = Storage::retrieve('42ceb1ab-18ef-4f2e-b076-14299756d182');
+                $id = '8b83886e-9cc3-4eab-9258-ebb16c0c73de';
+                $callback = Callback::retrieve($id);
 
             } catch (\Uiza\Exception\BadRequestError $e) {
                 $this->assertEquals($e->statusCode, 400);
@@ -152,7 +132,7 @@ class StorageTest extends TestBase
     {
         $return = [
             'data' => [
-                'id' => '42ceb1ab-18ef-4f2e-b076-14299756d182',
+                'id' => '8b83886e-9cc3-4eab-9258-ebb16c0c73de',
             ],
             'version' => 3,
             'code' => 200,
@@ -161,21 +141,17 @@ class StorageTest extends TestBase
 
         $this->mockData($return);
 
+        $id = '8b83886e-9cc3-4eab-9258-ebb16c0c73de';
         $params = [
-            "name" => "FTP Uiza",
-            "description" => "FTP of Uiza, use for transcode",
-            "storageType" => "ftp",
-            "host" => "ftp-example.uiza.io",
-            "username" => "uiza",
-            "password" => "=5;'9x@LPsd+w7qW",
-            "port" => 21
+            "url" => "https://callback-url.uiza.co",
+            "method" => "POST"
         ];
 
-        $storage = Storage::update('42ceb1ab-18ef-4f2e-b076-14299756d182', $params);
+        $callback = Callback::update($id, $params);
 
-        $this->assertInstanceOf(Storage::class, $storage);
+        $this->assertInstanceOf(Callback::class, $callback);
 
-        $this->assertEquals($storage->id, $return['data']['id']);
+        $this->assertEquals($callback->id, $return['data']['id']);
     }
 
     public function testUpdateError()
@@ -186,17 +162,13 @@ class StorageTest extends TestBase
             $this->mockDataError($key);
 
             try {
+                $id = '8b83886e-9cc3-4eab-9258-ebb16c0c73de';
                 $params = [
-                    "name" => "FTP Uiza",
-                    "description" => "FTP of Uiza, use for transcode",
-                    "storageType" => "ftp",
-                    "host" => "ftp-example.uiza.io",
-                    "username" => "uiza",
-                    "password" => "=5;'9x@LPsd+w7qW",
-                    "port" => 21
+                    "url" => "https://callback-url.uiza.co",
+                    "method" => "POST"
                 ];
 
-                $storage = Storage::update('42ceb1ab-18ef-4f2e-b076-14299756d182', $params);
+                $callback = Callback::update($id, $params);
 
             } catch (\Uiza\Exception\BadRequestError $e) {
                 $this->assertEquals($e->statusCode, 400);
@@ -222,7 +194,7 @@ class StorageTest extends TestBase
     {
         $return = [
             'data' => [
-                'id' => '42ceb1ab-18ef-4f2e-b076-14299756d182',
+                'id' => '8b83886e-9cc3-4eab-9258-ebb16c0c73de',
             ],
             'version' => 3,
             'code' => 200,
@@ -231,9 +203,10 @@ class StorageTest extends TestBase
 
         $this->mockData($return);
 
-        $storage = Storage::delete('42ceb1ab-18ef-4f2e-b076-14299756d182');
+        $id = '8b83886e-9cc3-4eab-9258-ebb16c0c73de';
+        $callback = Callback::delete($id);
 
-        $this->assertEquals($storage->id, $return['data']['id']);
+        $this->assertEquals($callback->id, $return['data']['id']);
     }
 
     public function testDeleteError()
@@ -244,7 +217,8 @@ class StorageTest extends TestBase
             $this->mockDataError($key);
 
             try {
-                $storage = Storage::delete('42ceb1ab-18ef-4f2e-b076-14299756d182');
+                $id = '8b83886e-9cc3-4eab-9258-ebb16c0c73de';
+                $callback = Callback::delete($id);
 
             } catch (\Uiza\Exception\BadRequestError $e) {
                 $this->assertEquals($e->statusCode, 400);

@@ -11,7 +11,7 @@ trait Delete {
      */
     public static function delete($id, $params = null)
     {
-        self::_validateParams($params);
+        self::_validateParams('Delete', $params);
         $url = static::resourceUrl();
         $params = ['id' => $id];
         $response = static::_staticRequest('DELETE', $url, $params);
