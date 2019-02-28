@@ -3,34 +3,13 @@
 namespace Tests\Uiza;
 
 use \Tests\TestBase;
-use \Uiza\ApiRequestor;
-use \Uiza\ApiResponse;
 use \Uiza\Entity;
-use GuzzleHttp\Client;
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Psr7\Response;
-use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\Exception\RequestException;
 
 class EntityTest extends TestBase
 {
     protected function setUp()
     {
         parent::setUp();
-    }
-
-    private function mockData($data)
-    {
-        // Create a mock subscriber and queue two responses.
-        $mock = new MockHandler([
-            new Response(200, [], json_encode($data)),         // Use response object
-        ]);
-
-        $handlerStack = HandlerStack::create($mock);
-        $client = new Client(['handler' => $handlerStack]);
-
-        ApiRequestor::setHttpClient($client);
     }
 
     public function testList()
@@ -73,9 +52,39 @@ class EntityTest extends TestBase
 
         $this->mockData($return);
 
-        $entitys = Entity::all(['publishToCdn' => 'queue']);
+        $entitys = Entity::list(['publishToCdn' => 'queue']);
 
         $this->assertInternalType('array', $entitys->body->data);
+    }
+
+    public function testListError()
+    {
+        $statusCode = $this->statusCode();
+
+        foreach ($statusCode as $key => $value) {
+            $this->mockDataError($key);
+
+            try {
+                $entity = Entity::list(['publishToCdn' => 'queue']);
+
+            } catch (\Uiza\Exception\BadRequestError $e) {
+                $this->assertEquals($e->statusCode, 400);
+            } catch (\Uiza\Exception\UnauthorizedError $e) {
+                $this->assertEquals($e->statusCode, 401);
+            } catch (\Uiza\Exception\NotFoundError $e) {
+                $this->assertEquals($e->statusCode, 404);
+            } catch (\Uiza\Exception\UnprocessableError $e) {
+                $this->assertEquals($e->statusCode, 422);
+            } catch (\Uiza\Exception\InternalServerError $e) {
+                $this->assertEquals($e->statusCode, 500);
+            } catch (\Uiza\Exception\ServiceUnavailableError $e) {
+                $this->assertEquals($e->statusCode, 503);
+            } catch (\Uiza\Exception\ClientError $e) {
+                $this->assertEquals($e->statusCode, $key);
+            } catch (\Uiza\Exception\ServerError $e) {
+                $this->assertEquals($e->statusCode, $key);
+            }
+        }
     }
 
     public function testCreate()
@@ -102,6 +111,42 @@ class EntityTest extends TestBase
         $this->assertInstanceOf(Entity::class, $entity);
 
         $this->assertEquals($entity->id, $return['data']['id']);
+    }
+
+    public function testCreateError()
+    {
+        $statusCode = $this->statusCode();
+
+        foreach ($statusCode as $key => $value) {
+            $this->mockDataError($key);
+
+            try {
+                $params = [
+                    'name' => 'ngoc2',
+                    'url' => 'https://stackoverflow.com/questions/41836785/why-i-cant-convert-this-object-representing-a-web-service-response-into-strin',
+                    'inputType' => 'http',
+                ];
+
+                $entity = Entity::create($params);
+
+            } catch (\Uiza\Exception\BadRequestError $e) {
+                $this->assertEquals($e->statusCode, 400);
+            } catch (\Uiza\Exception\UnauthorizedError $e) {
+                $this->assertEquals($e->statusCode, 401);
+            } catch (\Uiza\Exception\NotFoundError $e) {
+                $this->assertEquals($e->statusCode, 404);
+            } catch (\Uiza\Exception\UnprocessableError $e) {
+                $this->assertEquals($e->statusCode, 422);
+            } catch (\Uiza\Exception\InternalServerError $e) {
+                $this->assertEquals($e->statusCode, 500);
+            } catch (\Uiza\Exception\ServiceUnavailableError $e) {
+                $this->assertEquals($e->statusCode, 503);
+            } catch (\Uiza\Exception\ClientError $e) {
+                $this->assertEquals($e->statusCode, $key);
+            } catch (\Uiza\Exception\ServerError $e) {
+                $this->assertEquals($e->statusCode, $key);
+            }
+        }
     }
 
     public function testRetrieve()
@@ -132,6 +177,37 @@ class EntityTest extends TestBase
         $this->assertEquals($entity->id, $id);
     }
 
+    public function testRetrieveError()
+    {
+        $statusCode = $this->statusCode();
+
+        foreach ($statusCode as $key => $value) {
+            $this->mockDataError($key);
+
+            try {
+                $id = '42ceb1ab-18ef-4f2e-b076-14299756d182';
+                $entity = Entity::retrieve($id);
+
+            } catch (\Uiza\Exception\BadRequestError $e) {
+                $this->assertEquals($e->statusCode, 400);
+            } catch (\Uiza\Exception\UnauthorizedError $e) {
+                $this->assertEquals($e->statusCode, 401);
+            } catch (\Uiza\Exception\NotFoundError $e) {
+                $this->assertEquals($e->statusCode, 404);
+            } catch (\Uiza\Exception\UnprocessableError $e) {
+                $this->assertEquals($e->statusCode, 422);
+            } catch (\Uiza\Exception\InternalServerError $e) {
+                $this->assertEquals($e->statusCode, 500);
+            } catch (\Uiza\Exception\ServiceUnavailableError $e) {
+                $this->assertEquals($e->statusCode, 503);
+            } catch (\Uiza\Exception\ClientError $e) {
+                $this->assertEquals($e->statusCode, $key);
+            } catch (\Uiza\Exception\ServerError $e) {
+                $this->assertEquals($e->statusCode, $key);
+            }
+        }
+    }
+
     public function testUpdate()
     {
         $return = [
@@ -158,6 +234,42 @@ class EntityTest extends TestBase
         $this->assertEquals($entity->id, $return['data']['id']);
     }
 
+    public function testUpdateError()
+    {
+        $statusCode = $this->statusCode();
+
+        foreach ($statusCode as $key => $value) {
+            $this->mockDataError($key);
+
+            try {
+                $id = '42ceb1ab-18ef-4f2e-b076-14299756d182';
+                $params = [
+                    'name' => 'Name edited',
+                    'description' => 'Change desc',
+                ];
+
+                $entity = Entity::update($id, $params);
+
+            } catch (\Uiza\Exception\BadRequestError $e) {
+                $this->assertEquals($e->statusCode, 400);
+            } catch (\Uiza\Exception\UnauthorizedError $e) {
+                $this->assertEquals($e->statusCode, 401);
+            } catch (\Uiza\Exception\NotFoundError $e) {
+                $this->assertEquals($e->statusCode, 404);
+            } catch (\Uiza\Exception\UnprocessableError $e) {
+                $this->assertEquals($e->statusCode, 422);
+            } catch (\Uiza\Exception\InternalServerError $e) {
+                $this->assertEquals($e->statusCode, 500);
+            } catch (\Uiza\Exception\ServiceUnavailableError $e) {
+                $this->assertEquals($e->statusCode, 503);
+            } catch (\Uiza\Exception\ClientError $e) {
+                $this->assertEquals($e->statusCode, $key);
+            } catch (\Uiza\Exception\ServerError $e) {
+                $this->assertEquals($e->statusCode, $key);
+            }
+        }
+    }
+
     public function testDelete()
     {
         $return = [
@@ -175,6 +287,37 @@ class EntityTest extends TestBase
         $entity = Entity::delete($id);
 
         $this->assertEquals($entity->id, $return['data']['id']);
+    }
+
+    public function testDeleteError()
+    {
+        $statusCode = $this->statusCode();
+
+        foreach ($statusCode as $key => $value) {
+            $this->mockDataError($key);
+
+            try {
+                $id = '42ceb1ab-18ef-4f2e-b076-14299756d182';
+                $entity = Entity::delete($id);
+
+            } catch (\Uiza\Exception\BadRequestError $e) {
+                $this->assertEquals($e->statusCode, 400);
+            } catch (\Uiza\Exception\UnauthorizedError $e) {
+                $this->assertEquals($e->statusCode, 401);
+            } catch (\Uiza\Exception\NotFoundError $e) {
+                $this->assertEquals($e->statusCode, 404);
+            } catch (\Uiza\Exception\UnprocessableError $e) {
+                $this->assertEquals($e->statusCode, 422);
+            } catch (\Uiza\Exception\InternalServerError $e) {
+                $this->assertEquals($e->statusCode, 500);
+            } catch (\Uiza\Exception\ServiceUnavailableError $e) {
+                $this->assertEquals($e->statusCode, 503);
+            } catch (\Uiza\Exception\ClientError $e) {
+                $this->assertEquals($e->statusCode, $key);
+            } catch (\Uiza\Exception\ServerError $e) {
+                $this->assertEquals($e->statusCode, $key);
+            }
+        }
     }
 
     public function testSearch()
@@ -222,6 +365,36 @@ class EntityTest extends TestBase
         $this->assertInternalType('array', $entitys->body->data);
     }
 
+    public function testSearchError()
+    {
+        $statusCode = $this->statusCode();
+
+        foreach ($statusCode as $key => $value) {
+            $this->mockDataError($key);
+
+            try {
+                $entitys = Entity::search(['keyword' => 'sample']);
+
+            } catch (\Uiza\Exception\BadRequestError $e) {
+                $this->assertEquals($e->statusCode, 400);
+            } catch (\Uiza\Exception\UnauthorizedError $e) {
+                $this->assertEquals($e->statusCode, 401);
+            } catch (\Uiza\Exception\NotFoundError $e) {
+                $this->assertEquals($e->statusCode, 404);
+            } catch (\Uiza\Exception\UnprocessableError $e) {
+                $this->assertEquals($e->statusCode, 422);
+            } catch (\Uiza\Exception\InternalServerError $e) {
+                $this->assertEquals($e->statusCode, 500);
+            } catch (\Uiza\Exception\ServiceUnavailableError $e) {
+                $this->assertEquals($e->statusCode, 503);
+            } catch (\Uiza\Exception\ClientError $e) {
+                $this->assertEquals($e->statusCode, $key);
+            } catch (\Uiza\Exception\ServerError $e) {
+                $this->assertEquals($e->statusCode, $key);
+            }
+        }
+    }
+
     public function testPublish()
     {
         $return = [
@@ -240,6 +413,36 @@ class EntityTest extends TestBase
         $entity = Entity::publish(['id' => '42ceb1ab-18ef-4f2e-b076-14299756d182']);
 
         $this->assertEquals($entity->id, $return['data']['id']);
+    }
+
+    public function testPublishError()
+    {
+        $statusCode = $this->statusCode();
+
+        foreach ($statusCode as $key => $value) {
+            $this->mockDataError($key);
+
+            try {
+                $entity = Entity::publish(['id' => '42ceb1ab-18ef-4f2e-b076-14299756d182']);
+
+            } catch (\Uiza\Exception\BadRequestError $e) {
+                $this->assertEquals($e->statusCode, 400);
+            } catch (\Uiza\Exception\UnauthorizedError $e) {
+                $this->assertEquals($e->statusCode, 401);
+            } catch (\Uiza\Exception\NotFoundError $e) {
+                $this->assertEquals($e->statusCode, 404);
+            } catch (\Uiza\Exception\UnprocessableError $e) {
+                $this->assertEquals($e->statusCode, 422);
+            } catch (\Uiza\Exception\InternalServerError $e) {
+                $this->assertEquals($e->statusCode, 500);
+            } catch (\Uiza\Exception\ServiceUnavailableError $e) {
+                $this->assertEquals($e->statusCode, 503);
+            } catch (\Uiza\Exception\ClientError $e) {
+                $this->assertEquals($e->statusCode, $key);
+            } catch (\Uiza\Exception\ServerError $e) {
+                $this->assertEquals($e->statusCode, $key);
+            }
+        }
     }
 
     public function testGetStatusPublish()
@@ -262,6 +465,37 @@ class EntityTest extends TestBase
         $this->assertEquals($entity->progress, $return['data']['progress']);
     }
 
+    public function testGetStatusPublishError()
+    {
+        $statusCode = $this->statusCode();
+
+        foreach ($statusCode as $key => $value) {
+            $this->mockDataError($key);
+
+            try {
+                $id = '42ceb1ab-18ef-4f2e-b076-14299756d182';
+                $entity = Entity::getStatusPublish($id);
+
+            } catch (\Uiza\Exception\BadRequestError $e) {
+                $this->assertEquals($e->statusCode, 400);
+            } catch (\Uiza\Exception\UnauthorizedError $e) {
+                $this->assertEquals($e->statusCode, 401);
+            } catch (\Uiza\Exception\NotFoundError $e) {
+                $this->assertEquals($e->statusCode, 404);
+            } catch (\Uiza\Exception\UnprocessableError $e) {
+                $this->assertEquals($e->statusCode, 422);
+            } catch (\Uiza\Exception\InternalServerError $e) {
+                $this->assertEquals($e->statusCode, 500);
+            } catch (\Uiza\Exception\ServiceUnavailableError $e) {
+                $this->assertEquals($e->statusCode, 503);
+            } catch (\Uiza\Exception\ClientError $e) {
+                $this->assertEquals($e->statusCode, $key);
+            } catch (\Uiza\Exception\ServerError $e) {
+                $this->assertEquals($e->statusCode, $key);
+            }
+        }
+    }
+
     public function testGetAWSUploadKey()
     {
         $return = [
@@ -280,5 +514,35 @@ class EntityTest extends TestBase
         $entity = Entity::getAWSUploadKey();
 
         $this->assertEquals($entity->body->data->temp_access_id, $return['data']['temp_access_id']);
+    }
+
+    public function testGetAWSUploadKeyError()
+    {
+        $statusCode = $this->statusCode();
+
+        foreach ($statusCode as $key => $value) {
+            $this->mockDataError($key);
+
+            try {
+                $entity = Entity::getAWSUploadKey();
+
+            } catch (\Uiza\Exception\BadRequestError $e) {
+                $this->assertEquals($e->statusCode, 400);
+            } catch (\Uiza\Exception\UnauthorizedError $e) {
+                $this->assertEquals($e->statusCode, 401);
+            } catch (\Uiza\Exception\NotFoundError $e) {
+                $this->assertEquals($e->statusCode, 404);
+            } catch (\Uiza\Exception\UnprocessableError $e) {
+                $this->assertEquals($e->statusCode, 422);
+            } catch (\Uiza\Exception\InternalServerError $e) {
+                $this->assertEquals($e->statusCode, 500);
+            } catch (\Uiza\Exception\ServiceUnavailableError $e) {
+                $this->assertEquals($e->statusCode, 503);
+            } catch (\Uiza\Exception\ClientError $e) {
+                $this->assertEquals($e->statusCode, $key);
+            } catch (\Uiza\Exception\ServerError $e) {
+                $this->assertEquals($e->statusCode, $key);
+            }
+        }
     }
 }
