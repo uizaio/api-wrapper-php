@@ -25,4 +25,13 @@ class Analytic extends ApiResource
 
         return $response;
     }
+
+    public static function getType($params = [])
+    {
+        self::_validateParams('GetType', $params);
+        $url = static::resourceUrl() . '/type';
+        $response = static::_staticRequest('GET', $url, $params);
+
+        return $response;
+    }
 }
