@@ -81,3 +81,10 @@ Monitor the four key dimensions of video QoS: playback failures, startup time, r
 These 15 metrics help you track playback performance, so your team can know exactly what’s going on.
 
 See details [here](https://github.com/uizaio/api-wrapper-php/blob/develop/doc/Analytic.md).
+
+## User Management
+You can manage user with APIs user. Uiza have 2 levels of user:
+  Admin - This account will have the highest priority, can have permission to create & manage users.
+  User - This account level is under Admin level. It only manages APIs that relates to this account.
+
+See details [here](https://github.com/uizaio/api-wrapper-php/blob/develop/doc/User.md).

@@ -2,9 +2,8 @@
 
 namespace Uiza;
 
-class User extends Base
+class User extends ApiResource
 {
-    use \Uiza\ApiOperation\Request;
     use \Uiza\ApiOperation\Create;
     use \Uiza\ApiOperation\All;
 
@@ -13,11 +12,11 @@ class User extends Base
      */
     public static function classUrl()
     {
-        return "/media/entity";
+        return "/admin/user";
     }
 
     public static function resourceUrl()
     {
-        return self::getBaseUrl() . self::classUrl();
+        return Base::getBaseUrl() . self::classUrl();
     }
 }
