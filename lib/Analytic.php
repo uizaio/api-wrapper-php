@@ -34,4 +34,13 @@ class Analytic extends ApiResource
 
         return $response;
     }
+
+    public static function getLine($params = [])
+    {
+        self::_validateParams('GetLine', $params);
+        $url = static::resourceUrl() . '/line';
+        $response = static::_staticRequest('GET', $url, $params);
+
+        return $response;
+    }
 }

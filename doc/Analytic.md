@@ -20,7 +20,7 @@ Uiza\Analytic::getTotalLine($params);
 ````
 
 ### Type
-Get data base on 4 type of filter: country, device, title, player
+Get data base on 4 type of filter: country, device, title, player, os
 
 See details [here](https://docs.uiza.io/#type).
 
@@ -32,4 +32,19 @@ $params = [
 ];
 
 Uiza\Analytic::getType($params);
+````
+
+## Line
+Get data grouped by hour. Get total view in time range. This help you to draw a line chart to visualize data
+
+See details [here](https://docs.uiza.io/#line).
+
+````
+$params = [
+    'start_date' => 'YYYY-MM-DD',
+    'end_date' => 'YYYY-MM-DD',
+    'type' => 'rebuffer_count'
+];
+
+Uiza\Analytic::getLine($params);
 ````
