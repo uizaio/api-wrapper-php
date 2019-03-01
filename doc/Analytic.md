@@ -18,3 +18,18 @@ $params = [
 
 Uiza\Analytic::getTotalLine($params);
 ````
+
+### Type
+Get data base on 4 type of filter: country, device, title, player
+
+See details [here](https://docs.uiza.io/#type).
+
+````
+$params = [
+    'start_date' => 'YYYY-MM-DD',
+    'end_date' => 'YYYY-MM-DD',
+    'type_filter' => 'country'
+];
+
+Uiza\Analytic::getType($params);
+````
