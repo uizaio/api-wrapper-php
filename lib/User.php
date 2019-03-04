@@ -22,4 +22,12 @@ class User extends ApiResource
     {
         return Base::getBaseUrl() . self::classUrl();
     }
+
+    public static function logOut($params = [])
+    {
+        $url = self::resourceUrl() . '/logout';
+        $response = static::_staticRequest('POST', $url, $params);
+
+        return $response;
+    }
 }
