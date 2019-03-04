@@ -7,6 +7,11 @@ use \Uiza\Callback;
 
 class CallbackTest extends TestBase
 {
+    protected function setUp()
+    {
+        parent::setUp();
+    }
+
     public function testCreate()
     {
         $return = [
