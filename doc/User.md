@@ -76,3 +76,12 @@ See details [here](https://docs.uiza.io/#delete-an-user).
 ````
 Uiza\User::delete('id user');
 ````
+
+### Log Out
+This API use to log out an user. After logged out, token will be removed.
+
+See details [here](https://docs.uiza.io/#log-out).
+
+````
+Uiza\User::logOut();
+````
