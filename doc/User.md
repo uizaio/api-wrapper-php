@@ -35,3 +35,14 @@ See details [here](https://docs.uiza.io/#retrieve-an-user).
 ````
 Uiza\User::retrieve('id user');
 ````
+
+### List all users
+Returns a list of your user. The users are returned sorted by creation date, with the most recent user appearing first.
+If you use Admin token, you will get all the user.
+If you use User token, you can only get the information of that user
+
+See details [here](https://docs.uiza.io/#list-all-users).
+
+````
+Uiza\User::list();
+````
