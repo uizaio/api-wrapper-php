@@ -6,6 +6,7 @@ class User extends ApiResource
 {
     use \Uiza\ApiOperation\Create;
     use \Uiza\ApiOperation\All;
+    use \Uiza\ApiOperation\Retrieve;
 
     /**
      * @return string The endpoint URL for the given class.
