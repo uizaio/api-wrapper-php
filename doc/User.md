@@ -25,3 +25,13 @@ $params = [
 
 Uiza\User::create($params);
 ````
+
+### Retrieve an user
+Retrieves the details of an existing user.
+You need only supply the unique userId that was returned upon user creation.
+
+See details [here](https://docs.uiza.io/#retrieve-an-user).
+
+````
+Uiza\User::retrieve('id user');
+````
