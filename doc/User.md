@@ -67,3 +67,12 @@ $params = [
 
 Uiza\User::update('id user', $params);
 ````
+
+### Delete an user
+Permanently deletes an user. It cannot be undone. Also immediately cancels all token & information of this user.
+
+See details [here](https://docs.uiza.io/#delete-an-user).
+
+````
+Uiza\User::delete('id user');
+````

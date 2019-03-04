@@ -8,6 +8,7 @@ class User extends ApiResource
     use \Uiza\ApiOperation\All;
     use \Uiza\ApiOperation\Retrieve;
     use \Uiza\ApiOperation\Update;
+    use \Uiza\ApiOperation\Delete;
 
     /**
      * @return string The endpoint URL for the given class.
