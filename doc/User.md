@@ -46,3 +46,24 @@ See details [here](https://docs.uiza.io/#list-all-users).
 ````
 Uiza\User::list();
 ````
+
+### Update an user
+Updates the specified user by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
+
+See details [here](https://docs.uiza.io/#update-an-user).
+
+````
+$params = [
+    "status"  => 1,
+    "username" => "test",
+    "email" => "abc_test@uiza.io",
+    "fullname" => "Test",
+    "avatar" => "https://exemple.com/avatar.jpeg",
+    "dob" => "05/15/2018",
+    "gender" => 0,
+    "password" => "FMpsr<4[dGPu?B#u",
+    "isAdmin" => 1
+];
+
+Uiza\User::update('id user', $params);
+````
