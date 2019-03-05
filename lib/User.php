@@ -23,6 +23,18 @@ class User extends ApiResource
         return Base::getBaseUrl() . self::classUrl();
     }
 
+    public static function changePassword($params = [])
+    {
+        self::_validateParams('ChangePassword', $params);
+        $url = static::resourceUrl() . '/changepassword';
+        $response = static::_staticRequest('PUT', $url, $params);
+        $instance = new static($params['id']);
+        $instance->refreshFrom($response->body);
+        $instance->setLastResponse($response);
+
+        return $instance;
+    }
+
     public static function logOut($params = [])
     {
         $url = self::resourceUrl() . '/logout';

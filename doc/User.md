@@ -77,6 +77,21 @@ See details [here](https://docs.uiza.io/#delete-an-user).
 Uiza\User::delete('id user');
 ````
 
+### Update password
+Update password allows Admin or User update their current password.
+
+See details [here](https://docs.uiza.io/#update-password).
+
+````
+$params = [
+    "id" => "id user",
+    "oldPassword" => "FMpsr<4[dGPu?B#u",
+    "newPassword" => "S57Eb{:aMZhW=)G$"
+];
+
+Uiza\User::changePassword($params);
+````
+
 ### Log Out
 This API use to log out an user. After logged out, token will be removed.
 
