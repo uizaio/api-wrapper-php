@@ -51,8 +51,11 @@ $entity->name = "Name change";
 $entity->save();
 
 // or
+
 $params = [
-    'name' => 'Name change'
+    'name' => 'Name change',
+    'url' => 'http://google.com',
+    'inputType' => 'http',
 ];
 
 Uiza\Entity::update('key ..', $params);
