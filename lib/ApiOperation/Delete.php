@@ -9,11 +9,14 @@ trait Delete {
      *
      * @return \Uiza\ApiResource The deleted resource.
      */
-    public static function delete($id, $params = null)
+    public static function delete($id, $params = [])
     {
         self::_validateParams('Delete', $params);
         $url = static::resourceUrl();
-        $params = ['id' => $id];
+        $params = array_merge($params,[
+            'id' => $id,
+            'appId' => \Uiza\Base::$appId
+        ]);
         $response = static::_staticRequest('DELETE', $url, $params);
         $instance = new static($id);
         $instance->refreshFrom($response->body);
