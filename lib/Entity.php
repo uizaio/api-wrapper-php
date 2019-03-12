@@ -78,7 +78,11 @@ class Entity extends ApiResource
             $updateParams += [$key => $this->_values[$key]];
         }
 
-        $updateParams += ['id' => $this['id']];
+        $updateParams = array_merge($updateParams, [
+            'id' => $this['id'],
+            'appId' => \Uiza\Base::$appId
+        ]);
+
         return $updateParams;
     }
 
