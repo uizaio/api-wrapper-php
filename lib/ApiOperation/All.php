@@ -11,9 +11,10 @@ trait All
      *
      * @return \Uiza\Collection of ApiResources
      */
-    public static function all($params = null, $convertObj = false)
+    public static function all($params = [], $convertObj = false)
     {
         self::_validateParams('All', $params);
+        $params['appId'] = \Uiza\Base::$appId;
         $url = static::resourceUrl();
         $response = static::_staticRequest('GET', $url, $params);
 
@@ -38,7 +39,7 @@ trait All
      *
      * @return \Uiza\Collection of ApiResources
      */
-    public static function list($params = null, $convertObj = false)
+    public static function list($params = [], $convertObj = false)
     {
         return self::all($params, $convertObj);
     }
