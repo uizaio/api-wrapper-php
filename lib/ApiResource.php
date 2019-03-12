@@ -10,7 +10,10 @@ class ApiResource extends UizaObject
     public function refresh()
     {
         $url = static::resourceUrl();
-        $params = ['id' => $this['id']];
+        $params = [
+            'id' => $this['id'],
+            'appId' => \Uiza\Base::$appId
+        ];
         $response = static::_staticRequest('GET', $url, $params);
         $this->setLastResponse($response);
         $this->refreshFrom($response->body);
