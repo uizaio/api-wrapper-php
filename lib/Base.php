@@ -8,17 +8,17 @@ use Monolog\Handler\FirePHPHandler;
 
 class Base {
 
-    public static $workspaceApiDomain;
+    public static $appId;
 
     public static $apiKey;
 
-    public static $apiBase;
+    public static $apiBase = 'https://stag-ap-southeast-1-api.uizadev.io';
 
-    public static $apiVersion = 'v3';
+    public static $apiVersion = 'v4';
 
     public static $logger = null;
 
-    const VERSION = '1.0';
+    const VERSION = '1.2.0';
 
     public static function setApiKey(string $apiKey)
     {
@@ -33,10 +33,9 @@ class Base {
         return self::$apiKey;
     }
 
-    public static function setWorkspaceApiDomain(string $workspaceApiDomain)
+    public static function setAppId(string $appId)
     {
-        self::$workspaceApiDomain = $workspaceApiDomain;
-        self::$apiBase = 'https://' . self::$workspaceApiDomain . '.uiza.co';
+        self::$appId = $appId;
     }
 
     public static function getBaseUrl()

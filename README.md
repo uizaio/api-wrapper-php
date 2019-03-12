@@ -43,7 +43,7 @@ require __DIR__."/../vendor/autoload.php";
 ### Setup for your project
 
 ````
-Uiza\Base::setWorkspaceApiDomain('your-workspace-api-domain');
+Uiza\Base::setAppId('your-app-id');
 Uiza\Base::setApiKey('your-api-key');
 ````
 

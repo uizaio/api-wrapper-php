@@ -11,7 +11,7 @@ See details [here](https://docs.uiza.io/#create-entity).
 ````
 $params = [
     'name' => 'Name entity',
-    'url' => 'http://google.com,
+    'url' => 'http://google.com',
     'inputType' => 'http',
 ];
 
