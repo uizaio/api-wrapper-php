@@ -33,11 +33,11 @@ Get list of entities including all detail.
 See details [here](https://docs.uiza.io/#list-all-entities).
 
 ````
-Uiza\Entity::all(['publishToCdn' => 'queue']);
+Uiza\Entity::all();
 
 // or
 
-Uiza\Entity::list(['publishToCdn' => 'queue']);
+Uiza\Entity::list();
 ````
 
 ### Update entity.
