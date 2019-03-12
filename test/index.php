@@ -2,11 +2,13 @@
 
 require __DIR__."/../vendor/autoload.php";
 
-Uiza\Base::setWorkspaceApiDomain('your-workspace-api-domain');
+Uiza\Base::setAppId('your-app-id');
 Uiza\Base::setApiKey('your-api-key');
 
-$listEntity = Uiza\Entity::all();
-var_dump($listEntity);
+$params = [
+    'name' => 'Name entity',
+    'url' => 'http://google.com',
+    'inputType' => 'http',
+];
 
-$entity = Uiza\Entity::retrieve('');
-var_dump($entity);
+var_dump(Uiza\Entity::create($params));
