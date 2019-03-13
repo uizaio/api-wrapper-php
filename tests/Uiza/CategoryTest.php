@@ -19,7 +19,7 @@ class CategoryTest extends TestBase
             'data' => [
                 'id' => '42ceb1ab-18ef-4f2e-b076-14299756d182',
             ],
-            'version' => 3,
+            'version' => 4,
             'code' => 200,
             'message' => 'OK',
         ];
@@ -94,7 +94,7 @@ class CategoryTest extends TestBase
                 "createdAt" => "2018-06-18T04:29:05.000Z",
                 "updatedAt" => "2018-06-18T04:29:05.000Z"
             ],
-            'version' => 3,
+            'version' => 4,
             'code' => 200,
             'message' => 'OK',
         ];
@@ -175,7 +175,7 @@ class CategoryTest extends TestBase
                 "page" => 1,
                 "limit" => 20
             ],
-            'version' => 3,
+            'version' => 4,
             'code' => 200,
             'message' => 'OK',
         ];
@@ -223,7 +223,7 @@ class CategoryTest extends TestBase
             'data' => [
                 'id' => '095778fa-7e42-45cc-8a0e-6118e540b61d',
             ],
-            'version' => 3,
+            'version' => 4,
             'code' => 200,
             'message' => 'OK',
         ];
@@ -291,7 +291,7 @@ class CategoryTest extends TestBase
             'data' => [
                 'id' => '095778fa-7e42-45cc-8a0e-6118e540b61d',
             ],
-            'version' => 3,
+            'version' => 4,
             'code' => 200,
             'message' => 'OK',
         ];
@@ -356,7 +356,7 @@ class CategoryTest extends TestBase
                 "page" => 1,
                 "limit" => 20
             ],
-            'version' => 3,
+            'version' => 4,
             'code' => 200,
             'message' => 'OK',
         ];
@@ -425,7 +425,7 @@ class CategoryTest extends TestBase
                 "page" => 1,
                 "limit" => 20
             ],
-            'version' => 3,
+            'version' => 4,
             'code' => 200,
             'message' => 'OK',
         ];
