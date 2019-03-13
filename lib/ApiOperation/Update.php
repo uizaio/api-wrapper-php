@@ -18,7 +18,7 @@ trait Update
             'id' => $id,
             'appId' => \Uiza\Base::$appId
         ]);
-        return $params;
+
         $url = static::resourceUrl();
         $response = static::_staticRequest('PUT', $url, $params);
         $instance = new static($id);
