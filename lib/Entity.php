@@ -36,6 +36,7 @@ class Entity extends ApiResource
     public static function publish($params = [])
     {
         self::_validateParams('Publish', $params);
+        $params = array_merge($params, [ 'appId' => \Uiza\Base::$appId ]);
         $url = static::resourceUrl() . '/publish';
         $response = static::_staticRequest('POST', $url, $params);
         $instance = new static($params['id']);
