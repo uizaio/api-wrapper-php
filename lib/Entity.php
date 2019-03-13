@@ -65,6 +65,7 @@ class Entity extends ApiResource
     public static function getAWSUploadKey($params = [])
     {
         $url = Base::getBaseUrl(). 'admin/app/config/aws';
+        $params = array_merge($params, [ 'appId' => \Uiza\Base::$appId ]);
         $response = static::_staticRequest('GET', $url, $params);
 
         return $response;
