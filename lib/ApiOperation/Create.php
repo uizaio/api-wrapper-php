@@ -12,7 +12,7 @@ trait Create {
     public static function create($params = [], $options = null)
     {
         self::_validateParams('Create', $params);
-        $params['appId'] = \Uiza\Base::$appId;
+        $params = array_merge($params, [ 'appId' => \Uiza\Base::$appId ]);
         $url = static::resourceUrl();
         $response = static::_staticRequest('POST', $url, $params, $options);
 

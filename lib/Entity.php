@@ -26,6 +26,7 @@ class Entity extends ApiResource
     public static function search($params = [])
     {
         self::_validateParams('Search', $params);
+        $params = array_merge($params, [ 'appId' => \Uiza\Base::$appId ]);
         $url = static::resourceUrl() . '/search';
         $response = static::_staticRequest('GET', $url, $params);
 
