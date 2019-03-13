@@ -47,7 +47,10 @@ class Entity extends ApiResource
 
     public static function getStatusPublish($id, $params = [])
     {
-        $params += ['id' => $id];
+        $params = array_merge($params,[
+            'id' => $id,
+            'appId' => \Uiza\Base::$appId
+        ]);
         self::_validateParams('GetStatusPublish', $params);
         $url = static::resourceUrl() . '/publish/status';
         $response = static::_staticRequest('GET', $url, $params);
