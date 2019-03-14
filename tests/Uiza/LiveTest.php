@@ -18,7 +18,7 @@ class LiveTest extends TestBase
             'data' => [
                 'id' => '42ceb1ab-18ef-4f2e-b076-14299756d182',
             ],
-            'version' => 3,
+            'version' => 4,
             'code' => 200,
             'message' => 'OK',
         ];
@@ -114,7 +114,7 @@ class LiveTest extends TestBase
                 "createdAt" => "2018-06-21T14:33:36.000Z",
                 "updatedAt" => "2018-06-21T14:33:36.000Z"
             ],
-            'version' => 3,
+            'version' => 4,
             'code' => 200,
             'message' => 'OK',
         ];
@@ -166,7 +166,7 @@ class LiveTest extends TestBase
             'data' => [
                 'id' => '8b83886e-9cc3-4eab-9258-ebb16c0c73de',
             ],
-            'version' => 3,
+            'version' => 4,
             'code' => 200,
             'message' => 'OK',
         ];
@@ -234,7 +234,7 @@ class LiveTest extends TestBase
             'data' => [
                 'id' => '8b83886e-9cc3-4eab-9258-ebb16c0c73de',
             ],
-            'version' => 3,
+            'version' => 4,
             'code' => 200,
             'message' => 'OK',
         ];
@@ -284,7 +284,7 @@ class LiveTest extends TestBase
             'data' => [
                 'id' => '8b83886e-9cc3-4eab-9258-ebb16c0c73de',
             ],
-            'version' => 3,
+            'version' => 4,
             'code' => 200,
             'message' => 'OK',
         ];
@@ -336,7 +336,7 @@ class LiveTest extends TestBase
                 "watchnow" => 1,
                 "day" => 1533271205999
             ],
-            'version' => 3,
+            'version' => 4,
             'code' => 200,
             'message' => 'OK',
         ];
@@ -421,7 +421,7 @@ class LiveTest extends TestBase
                 "page" => 1,
                 "limit" => 20
             ],
-            'version' => 3,
+            'version' => 4,
             'code' => 200,
             'message' => 'OK',
         ];
@@ -469,7 +469,7 @@ class LiveTest extends TestBase
             'data' => [
                 'id' => '8b83886e-9cc3-4eab-9258-ebb16c0c73de',
             ],
-            'version' => 3,
+            'version' => 4,
             'code' => 200,
             'message' => 'OK',
         ];
@@ -519,7 +519,7 @@ class LiveTest extends TestBase
             'data' => [
                 'id' => '8b83886e-9cc3-4eab-9258-ebb16c0c73de',
             ],
-            'version' => 3,
+            'version' => 4,
             'code' => 200,
             'message' => 'OK',
         ];

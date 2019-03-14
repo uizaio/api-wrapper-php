@@ -19,7 +19,7 @@ class StorageTest extends TestBase
             'data' => [
                 'id' => '42ceb1ab-18ef-4f2e-b076-14299756d182',
             ],
-            'version' => 3,
+            'version' => 4,
             'code' => 200,
             'message' => 'OK',
         ];
@@ -104,7 +104,7 @@ class StorageTest extends TestBase
                 "createdAt" => "2018-06-19T03:01:56.000Z",
                 "updatedAt" => "2018-06-19T03:01:56.000Z"
             ],
-            'version' => 3,
+            'version' => 4,
             'code' => 200,
             'message' => 'OK',
         ];
@@ -154,7 +154,7 @@ class StorageTest extends TestBase
             'data' => [
                 'id' => '42ceb1ab-18ef-4f2e-b076-14299756d182',
             ],
-            'version' => 3,
+            'version' => 4,
             'code' => 200,
             'message' => 'OK',
         ];
@@ -224,7 +224,7 @@ class StorageTest extends TestBase
             'data' => [
                 'id' => '42ceb1ab-18ef-4f2e-b076-14299756d182',
             ],
-            'version' => 3,
+            'version' => 4,
             'code' => 200,
             'message' => 'OK',
         ];

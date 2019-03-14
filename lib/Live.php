@@ -24,6 +24,7 @@ class Live extends ApiResource
     public static function startFeed($params = [])
     {
         self::_validateParams('StartFeed', $params);
+        $params = array_merge($params, [ 'appId' => \Uiza\Base::$appId ]);
         $url = static::resourceUrl() . '/feed';
         $response = static::_staticRequest('POST', $url, $params);
 
@@ -37,6 +38,7 @@ class Live extends ApiResource
     public static function stopFeed($params = [])
     {
         self::_validateParams('StopFeed', $params);
+        $params = array_merge($params, [ 'appId' => \Uiza\Base::$appId ]);
         $url = static::resourceUrl() . '/feed';
         $response = static::_staticRequest('PUT', $url, $params);
 
@@ -50,6 +52,7 @@ class Live extends ApiResource
     public static function getView($params = [])
     {
         self::_validateParams('GetView', $params);
+        $params = array_merge($params, [ 'appId' => \Uiza\Base::$appId ]);
         $url = static::resourceUrl() . '/tracking/current-view';
         $response = static::_staticRequest('GET', $url, $params);
 
@@ -60,9 +63,10 @@ class Live extends ApiResource
         return $instance;
     }
 
-    public static function listRecorded($params = null, $convertObj = false)
+    public static function listRecorded($params = [], $convertObj = false)
     {
         self::_validateParams('ListRecored', $params);
+        $params = array_merge($params, [ 'appId' => \Uiza\Base::$appId ]);
         $url = static::resourceUrl() . '/dvr';
         $response = static::_staticRequest('GET', $url, $params);
 
@@ -81,11 +85,14 @@ class Live extends ApiResource
         return $response;
     }
 
-    public static function delete($id, $params = null)
+    public static function delete($id, $params = [])
     {
         self::_validateParams('Delete', $params);
+        $params = array_merge($params,[
+            'id' => $id,
+            'appId' => \Uiza\Base::$appId
+        ]);
         $url = static::resourceUrl() . '/dvr';
-        $params = ['id' => $id];
         $response = static::_staticRequest('DELETE', $url, $params);
         $instance = new static($id);
         $instance->refreshFrom($response->body);
@@ -97,6 +104,7 @@ class Live extends ApiResource
     public static function convertToVOD($params = [])
     {
         self::_validateParams('ConvertToVOD', $params);
+        $params = array_merge($params, [ 'appId' => \Uiza\Base::$appId ]);
         $url = static::resourceUrl() . '/dvr/convert-to-vod';
         $response = static::_staticRequest('POST', $url, $params);
 
