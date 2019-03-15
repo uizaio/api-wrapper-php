@@ -1,14 +1,14 @@
 ## Storage
 You can add your storage (FTP, AWS S3) with UIZA.
-After synced, you can select your content easier from your storage to create entity.
+After synced, you can select your content easier from your storage to [create entity](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media-create_entity).
 
-See details [here](https://docs.uiza.io/#storage).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Storage).
 
 ### Add Storage
 You can sync your storage (FTP, AWS S3) with UIZA.\
-After synced, you can select your content easier from your storage to create entity.
+After synced, you can select your content easier from your storage to [create entity](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media-create_entity).
 
-See details [here](https://docs.uiza.io/#add-a-storage).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Storage-create_storage).
 
 ````
 $params = [
@@ -27,7 +27,7 @@ Uiza\Storage::add($params);
 ### Retrieve Storage
 Get information of your added storage (FTP or AWS S3).
 
-See details [here](https://docs.uiza.io/#retrieve-a-storage).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Storage-list_storage).
 
 ````
 Uiza\Storage::retrieve('key ... ');
@@ -36,7 +36,7 @@ Uiza\Storage::retrieve('key ... ');
 ### Update Storage
 Update storage's information.
 
-See details [here](https://docs.uiza.io/#update-storage).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Storage-update_storage).
 
 ````
 $params = [
@@ -55,7 +55,7 @@ Uiza\Storage::update('key ..', $params);
 ### Remove Storage
 Remove storage that added to Uiza.
 
-See details [here](https://docs.uiza.io/#remove-storage).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Storage-delete_storage).
 
 ````
 Uiza\Storage::remove('key ...');

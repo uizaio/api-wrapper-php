@@ -3,13 +3,13 @@ These APIs used to create and manage live streaming event.
 * When a Live is not start : it's named as `Event`.
 * When have an Event , you can start it : it's named as `Feed`.
 
-See details [here](https://docs.uiza.io/#live-streaming).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Live).
 
 ### Create a live event
 
 These APIs use to create a live streaming and manage the live streaming input (output). A live stream can be set up and start later or start right after set up. Live Channel Minutes counts when the event starts.
 
-See details [here](https://docs.uiza.io/#create-a-live-event).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Live-post_live_entity).
 
 ````
 $params = [
@@ -33,7 +33,7 @@ Uiza\Live::create($params);
 
 Retrieves the details of an existing event. You need only provide the unique identifier of event that was returned upon Live event creation.
 
-See details [here](https://docs.uiza.io/#retrieve-a-live-event).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Live-get_live_entity).
 
 ````
 Uiza\Live::retrieve('key ... ');
@@ -43,7 +43,7 @@ Uiza\Live::retrieve('key ... ');
 
 Update the specific Live event by edit values of parameters.
 
-See details [here](https://docs.uiza.io/#update-a-live-event).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Live-put_live_entity).
 
 ````
 $params = [
@@ -60,7 +60,7 @@ Uiza\Live::update('key ..', $params);
 
 These API use to start a live event that has been create success. The Live channel minute start count whenever the event start success
 
-See details [here](https://docs.uiza.io/#start-a-live-feed).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Live_Feed-post_live_feed_start).
 
 ````
 Uiza\Live::startFeed(['id' => 'your entityId...'])
@@ -70,7 +70,7 @@ Uiza\Live::startFeed(['id' => 'your entityId...'])
 
 This API use to get a live view status . This view only show when event has been started and being processing.
 
-See details [here](https://docs.uiza.io/#get-view-of-live-feed).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Live_Feed-get_status_live_feed).
 
 ````
 Uiza\Live::getView(['id' => 'your entityId...'])
@@ -80,7 +80,7 @@ Uiza\Live::getView(['id' => 'your entityId...'])
 
 Stop live event
 
-See details [here](https://docs.uiza.io/#stop-a-live-feed).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Live_Feed-put_live_feed_stop).
 
 ````
 Uiza\Live::stopFeed(['id' => 'your entityId...'])
@@ -90,7 +90,7 @@ Uiza\Live::stopFeed(['id' => 'your entityId...'])
 
 Retrieves list of recorded file after streamed (only available when your live event has turned on Record feature)
 
-See details [here](https://docs.uiza.io/#list-all-recorded-files).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Live-get_live_entity_dvr).
 
 ````
 Uiza\Live::listRecorded();
@@ -100,7 +100,7 @@ Uiza\Live::listRecorded();
 
 Delete a recorded file
 
-See details [here](https://docs.uiza.io/#delete-a-record-file).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Live-delete_live_entity_dvr).
 
 ````
 Uiza\Live::delete('id record ...');
@@ -110,7 +110,7 @@ Uiza\Live::delete('id record ...');
 
 Convert recorded file into VOD entity. After converted, your file can be stream via Uiza's CDN.
 
-See details [here](https://docs.uiza.io/#convert-into-vod).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Live-post_convert_to_vod).
 
 ````
 Uiza\Live::convertToVOD(['id' => 'your entityId...'])
