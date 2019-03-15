@@ -1,13 +1,13 @@
 ## Category
-Category has been splits into 3 types: folder, playlist and tag. These will make the management of entity more easier.
+Category has been splits into 4 types: folder, playlist, tag and category. These will make the management of entity more easier.
 
-See details [here](https://docs.uiza.io/#category).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Metadata).
 
 ### Create Category
 Create category for entity for easier management.\
-Category use to group all the same entities into a group (like Folder/ playlist/or tag).
+Category use to group all the same entities into a group (like Folder/playlist/category or tag).
 
-See details [here](https://docs.uiza.io/#create-category).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Metadata-create_metadata).
 
 ````
 $params = [
@@ -22,7 +22,7 @@ Uiza\Category::create($params);
 ### Retrieve Category
 Get detail of category.
 
-See details [here](https://docs.uiza.io/#retrieve-category).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Metadata-get_metadata).
 
 ````
 Uiza\Category::retrieve('key ... ');
@@ -31,7 +31,7 @@ Uiza\Category::retrieve('key ... ');
 ### Retrieve Category List
 Get all category.
 
-See details [here](https://docs.uiza.io/#retrieve-category-list).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Metadata-get_metadata).
 
 ````
 $listCategory = Uiza\Category::all();
@@ -44,7 +44,7 @@ $listCategory = Uiza\Category::list();
 ### Update Category
 Update information of category
 
-See details [here](https://docs.uiza.io/#update-category).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Metadata-update_metadata).
 
 ````
 $params = [
@@ -59,7 +59,7 @@ Uiza\Category::update('key ..', $params);
 ### Delete Category
 Delete category
 
-See details [here](https://docs.uiza.io/#delete-category).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Metadata-delete_metadata).
 
 ````
 $category = Uiza\Category::retrieve('key ... ');
@@ -73,7 +73,7 @@ Uiza\Category::delete('key ...');
 ### Create Category Relation
 Add relation for entity and category
 
-See details [here](https://docs.uiza.io/#create-category-relation).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Metadata-create_n_metadata_for_one_entiy)).
 
 ````
 $params = [
@@ -87,7 +87,7 @@ Uiza\Category::createRelation($params);
 ### Delete Category Relation
 Delete relation for entity and category
 
-See details [here](https://docs.uiza.io/#delete-category-relation).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Metadata-delete_n_metadata_for_one_entiy).
 
 ````
 $params = [

@@ -1,12 +1,12 @@
 ## Entity
 These below APIs used to take action with your media files (we called Entity).
 
-See details [here](https://docs.uiza.io/#video).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media).
 
 ### Create entity.
 Create entity using full URL. Direct HTTP, FTP or AWS S3 link are acceptable.
 
-See details [here](https://docs.uiza.io/#create-entity).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media-create_entity).
 
 ````
 $params = [
@@ -21,7 +21,7 @@ Uiza\Entity::create($params);
 ### Retrieve entity
 Get detail of entity including all information of entity.
 
-See details [here](https://docs.uiza.io/#retrieve-an-entity).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media-get_entity).
 
 ````
 Uiza\Entity::retrieve('key ... ');
@@ -30,7 +30,7 @@ Uiza\Entity::retrieve('key ... ');
 ### List all entities.
 Get list of entities including all detail.
 
-See details [here](https://docs.uiza.io/#list-all-entities).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media-get_entity).
 
 ````
 Uiza\Entity::all();
@@ -43,7 +43,7 @@ Uiza\Entity::list();
 ### Update entity.
 Update entity's information.
 
-See details [here](https://docs.uiza.io/#update-an-entity).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media-update_entity).
 
 ````
 $entity = Uiza\Entity::retrieve('key ... ');
@@ -64,7 +64,7 @@ Uiza\Entity::update('key ..', $params);
 ### Delete entity
 Delete entity.
 
-See details [here](https://docs.uiza.io/#delete-an-entity).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media-delete_entity).
 
 ````
 $entity = Uiza\Entity::retrieve('key ... ');
@@ -78,8 +78,6 @@ Uiza\Entity::delete('key ...');
 ### Search entity.
 Search entity base on keyword entered.
 
-See details [here](https://docs.uiza.io/#search-entity).
-
 ````
 Uiza\Entity::search(['keyword' => 'sample']);
 ````
@@ -87,7 +85,7 @@ Uiza\Entity::search(['keyword' => 'sample']);
 ### Publish entity to CDN
 Publish entity to CDN, use for streaming.
 
-See details [here](https://docs.uiza.io/#publish-entity-to-cdn).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media-post_transcode_standard).
 
 ````
 Uiza\Entity::publish(['id' => 'key ..']);
@@ -96,7 +94,7 @@ Uiza\Entity::publish(['id' => 'key ..']);
 ### Get Status Publish
 Publish entity to CDN, use for streaming.
 
-See details [here](https://docs.uiza.io/#get-status-publish).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media-get_publish_cdn_status).
 ````
 Uiza\Entity::getStatusPublish('key ...');
 ````
@@ -104,7 +102,7 @@ Uiza\Entity::getStatusPublish('key ...');
 ### Get AWS Upload Key
 This API will be return the bucket temporary upload storage & key for upload, so that you can push your file to Uiza’s storage and get the link for URL upload & create entity.
 
-See details [here](https://docs.uiza.io/#get-aws-upload-key).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-App-get_aws_key).
 
 ````
 Uiza\Entity::getAWSUploadKey();
