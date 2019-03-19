@@ -68,3 +68,8 @@ See details [here](https://github.com/uizaio/api-wrapper-php/blob/develop/doc/Li
 Callback used to retrieve an information for Uiza to your server, so you can have a trigger notice about an entity is upload completed and .
 
 See details [here](https://github.com/uizaio/api-wrapper-php/blob/develop/doc/Callback.md).
+
+## User Management
+You can manage user with APIs user.
+
+See details [here](https://github.com/uizaio/api-wrapper-php/blob/develop/doc/User.md).
