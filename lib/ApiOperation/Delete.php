@@ -9,7 +9,7 @@ trait Delete {
      *
      * @return \Uiza\ApiResource The deleted resource.
      */
-    public static function delete($id, $params = null)
+    public static function delete($id, $params = [])
     {
         self::_validateParams('Delete', $params);
         $url = static::resourceUrl();

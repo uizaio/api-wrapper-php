@@ -20,7 +20,7 @@ class Base {
 
     const VERSION = '1.0';
 
-    public static function setApiKey(string $apiKey)
+    public static function setAuthorization(string $apiKey)
     {
         self::$apiKey = $apiKey;
     }
@@ -28,7 +28,7 @@ class Base {
     /**
      * @return string The API key used for requests.
      */
-    public static function getApiKey()
+    public static function getAuthorization()
     {
         return self::$apiKey;
     }
@@ -36,7 +36,7 @@ class Base {
     public static function setWorkspaceApiDomain(string $workspaceApiDomain)
     {
         self::$workspaceApiDomain = $workspaceApiDomain;
-        self::$apiBase = 'https://' . self::$workspaceApiDomain . '.uiza.co';
+        self::$apiBase = 'https://' . self::$workspaceApiDomain;
     }
 
     public static function getBaseUrl()

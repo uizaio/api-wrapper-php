@@ -11,7 +11,7 @@ trait All
      *
      * @return \Uiza\Collection of ApiResources
      */
-    public static function all($params = null, $convertObj = false)
+    public static function all($params = [], $convertObj = false)
     {
         self::_validateParams('All', $params);
         $url = static::resourceUrl();
@@ -38,7 +38,7 @@ trait All
      *
      * @return \Uiza\Collection of ApiResources
      */
-    public static function list($params = null, $convertObj = false)
+    public static function list($params = [], $convertObj = false)
     {
         return self::all($params, $convertObj);
     }
