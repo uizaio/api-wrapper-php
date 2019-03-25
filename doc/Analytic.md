@@ -10,13 +10,22 @@ Get data grouped by hour (data refresh every 5 minutes). Track video playback on
 See details [here](https://docs.uiza.io/#total-line).
 
 ````
-$params = [
-    'start_date' => 'YYYY-MM-DD hh:mm',
-    'end_date' => 'YYYY-MM-DD hh:mm',
-    'metric' => 'rebuffer_count'
-];
+require __DIR__."/../vendor/autoload.php";
 
-Uiza\Analytic::getTotalLine($params);
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
+try {
+    $params = [
+        'start_date' => 'YYYY-MM-DD hh:mm',
+        'end_date' => 'YYYY-MM-DD hh:mm',
+        'metric' => 'rebuffer_count'
+    ];
+
+    Uiza\Analytic::getTotalLine($params);
+} catch(\Uiza\Exception\ErrorResponse $e) {
+    print($e);
+}
 ````
 
 ### Type
@@ -25,13 +34,22 @@ Get data base on 4 type of filter: country, device, title, player, os
 See details [here](https://docs.uiza.io/#type).
 
 ````
-$params = [
-    'start_date' => 'YYYY-MM-DD',
-    'end_date' => 'YYYY-MM-DD',
-    'type_filter' => 'country'
-];
+require __DIR__."/../vendor/autoload.php";
 
-Uiza\Analytic::getType($params);
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
+try {
+    $params = [
+        'start_date' => 'YYYY-MM-DD',
+        'end_date' => 'YYYY-MM-DD',
+        'type_filter' => 'country'
+    ];
+
+    Uiza\Analytic::getType($params);
+} catch(\Uiza\Exception\ErrorResponse $e) {
+    print($e);
+}
 ````
 
 ## Line
@@ -40,11 +58,20 @@ Get data grouped by hour. Get total view in time range. This help you to draw a 
 See details [here](https://docs.uiza.io/#line).
 
 ````
-$params = [
-    'start_date' => 'YYYY-MM-DD',
-    'end_date' => 'YYYY-MM-DD',
-    'type' => 'rebuffer_count'
-];
+require __DIR__."/../vendor/autoload.php";
 
-Uiza\Analytic::getLine($params);
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
+try {
+    $params = [
+        'start_date' => 'YYYY-MM-DD',
+        'end_date' => 'YYYY-MM-DD',
+        'type' => 'rebuffer_count'
+    ];
+
+    Uiza\Analytic::getLine($params);
+} catch(\Uiza\Exception\ErrorResponse $e) {
+    print($e);
+}
 ````

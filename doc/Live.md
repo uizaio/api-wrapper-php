@@ -12,21 +12,30 @@ These APIs use to create a live streaming and manage the live streaming input (o
 See details [here](https://docs.uiza.io/#create-a-live-event).
 
 ````
-$params = [
-    "name" => "test event",
-    "mode" => "push",
-    "encode" => 1,
-    "dvr" => 1,
-    "description" => "This is for test event",
-    "poster" => "//image1.jpeg",
-    "thumbnail" => "//image1.jpeg",
-    "linkStream" => [
-              "https://playlist.m3u8"
-            ],
-    "resourceMode" => "single"
-];
+require __DIR__."/../vendor/autoload.php";
 
-Uiza\Live::create($params);
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
+try {
+    $params = [
+        "name" => "test event",
+        "mode" => "push",
+        "encode" => 1,
+        "dvr" => 1,
+        "description" => "This is for test event",
+        "poster" => "//image1.jpeg",
+        "thumbnail" => "//image1.jpeg",
+        "linkStream" => [
+                  "https://playlist.m3u8"
+                ],
+        "resourceMode" => "single"
+    ];
+
+    Uiza\Live::create($params);
+} catch(\Uiza\Exception\ErrorResponse $e) {
+    print($e);
+}
 ````
 
 ### Retrieve a live event
@@ -36,7 +45,16 @@ Retrieves the details of an existing event. You need only provide the unique ide
 See details [here](https://docs.uiza.io/#retrieve-a-live-event).
 
 ````
-Uiza\Live::retrieve('key ... ');
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
+try {
+    Uiza\Live::retrieve('key ... ');
+} catch(\Uiza\Exception\ErrorResponse $e) {
+    print($e);
+}
 ````
 
 ### Update a live event
@@ -46,14 +64,24 @@ Update the specific Live event by edit values of parameters.
 See details [here](https://docs.uiza.io/#update-a-live-event).
 
 ````
-$params = [
-    "name" => "live test",
-    "mode" => "pull",
-    "encode" => 0,
-    "dvr" => 1,
-    "resourceMode" => "single"
-];
-Uiza\Live::update('key ..', $params);
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
+try {
+    $params = [
+        "name" => "live test",
+        "mode" => "pull",
+        "encode" => 0,
+        "dvr" => 1,
+        "resourceMode" => "single"
+    ];
+
+    Uiza\Live::update('key ..', $params);
+} catch(\Uiza\Exception\ErrorResponse $e) {
+    print($e);
+}
 ````
 
 ### Start a live feed
@@ -63,7 +91,16 @@ These API use to start a live event that has been create success. The Live chann
 See details [here](https://docs.uiza.io/#start-a-live-feed).
 
 ````
-Uiza\Live::startFeed(['id' => 'your entityId...'])
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
+try {
+    Uiza\Live::startFeed(['id' => 'your entityId...']);
+} catch(\Uiza\Exception\ErrorResponse $e) {
+    print($e);
+}
 ````
 
 ### Get view of live feed
@@ -73,7 +110,16 @@ This API use to get a live view status . This view only show when event has been
 See details [here](https://docs.uiza.io/#get-view-of-live-feed).
 
 ````
-Uiza\Live::getView(['id' => 'your entityId...'])
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
+try {
+    Uiza\Live::getView(['id' => 'your entityId...']);
+} catch(\Uiza\Exception\ErrorResponse $e) {
+    print($e);
+}
 ````
 
 ### Stop a live feed
@@ -83,7 +129,16 @@ Stop live event
 See details [here](https://docs.uiza.io/#stop-a-live-feed).
 
 ````
-Uiza\Live::stopFeed(['id' => 'your entityId...'])
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
+try {
+    Uiza\Live::stopFeed(['id' => 'your entityId...']);
+} catch(\Uiza\Exception\ErrorResponse $e) {
+    print($e);
+}
 ````
 
 ### List all recorded files
@@ -93,7 +148,16 @@ Retrieves list of recorded file after streamed (only available when your live ev
 See details [here](https://docs.uiza.io/#list-all-recorded-files).
 
 ````
-Uiza\Live::listRecorded();
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
+try {
+    Uiza\Live::listRecorded();
+} catch(\Uiza\Exception\ErrorResponse $e) {
+    print($e);
+}
 ````
 
 ### Delete a record file
@@ -103,7 +167,16 @@ Delete a recorded file
 See details [here](https://docs.uiza.io/#delete-a-record-file).
 
 ````
-Uiza\Live::delete('id record ...');
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
+try {
+    Uiza\Live::delete('id record ...');
+} catch(\Uiza\Exception\ErrorResponse $e) {
+    print($e);
+}
 ````
 
 ### Convert into VOD
@@ -113,5 +186,14 @@ Convert recorded file into VOD entity. After converted, your file can be stream 
 See details [here](https://docs.uiza.io/#convert-into-vod).
 
 ````
-Uiza\Live::convertToVOD(['id' => 'your entityId...'])
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
+try {
+    Uiza\Live::convertToVOD(['id' => 'your entityId...']);
+} catch(\Uiza\Exception\ErrorResponse $e) {
+    print($e);
+}
 ````

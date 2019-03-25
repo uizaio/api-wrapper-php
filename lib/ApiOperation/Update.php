@@ -11,7 +11,7 @@ trait Update
      *
      * @return \Uiza\ApiResource The updated resource.
      */
-    public static function update($id, $params = null)
+    public static function update($id, $params = [])
     {
         self::_validateParams('Update', $params);
         $params += ['id' => $id];
