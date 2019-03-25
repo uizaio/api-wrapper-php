@@ -10,13 +10,24 @@ Category use to group all the same entities into a group (like Folder/ playlist/
 See details [here](https://docs.uiza.io/#create-category).
 
 ````
-$params = [
-    "name" => "Folder sample",
-    "type" => "folder",
-    "description" => "Folder description",
-];
+require __DIR__."/../vendor/autoload.php";
 
-Uiza\Category::create($params);
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
+try {
+    $params = [
+        "name" => "Folder sample",
+        "type" => "folder",
+        "description" => "Folder description",
+        "orderNumber" => 1,
+        "icon" => "https://exemple.com/icon.png"
+    ];
+
+    Uiza\Category::create($params);
+} catch(\Uiza\Exception\ErrorResponse $e) {
+    print($e);
+}
 ````
 
 ### Retrieve Category
@@ -25,7 +36,16 @@ Get detail of category.
 See details [here](https://docs.uiza.io/#retrieve-category).
 
 ````
-Uiza\Category::retrieve('key ... ');
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
+try {
+    Uiza\Category::retrieve('key ... ');
+} catch(\Uiza\Exception\ErrorResponse $e) {
+    print($e);
+}
 ````
 
 ### Retrieve Category List
@@ -34,11 +54,20 @@ Get all category.
 See details [here](https://docs.uiza.io/#retrieve-category-list).
 
 ````
-$listCategory = Uiza\Category::all();
+require __DIR__."/../vendor/autoload.php";
 
-// or
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
 
-$listCategory = Uiza\Category::list();
+try {
+    Uiza\Category::all();
+
+    // or
+
+    Uiza\Category::list();
+} catch(\Uiza\Exception\ErrorResponse $e) {
+    print($e);
+}
 ````
 
 ### Update Category
@@ -47,13 +76,24 @@ Update information of category
 See details [here](https://docs.uiza.io/#update-category).
 
 ````
-$params = [
-    "name" => "Folder edited",
-    "type" => "folder",
-];
+require __DIR__."/../vendor/autoload.php";
 
-Uiza\Category::update('key ..', $params);
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
 
+try {
+    $params = [
+        "name" => "Folder edited",
+        "type" => "folder",
+        "description" => "Folder description new",
+        "orderNumber" => 1,
+        "icon" => "/exemple.com/icon_001.png"
+    ];
+
+    Uiza\Category::update('key ..', $params);
+} catch(\Uiza\Exception\ErrorResponse $e) {
+    print($e);
+}
 ````
 
 ### Delete Category
@@ -62,12 +102,21 @@ Delete category
 See details [here](https://docs.uiza.io/#delete-category).
 
 ````
-$category = Uiza\Category::retrieve('key ... ');
-$category->destroy();
+require __DIR__."/../vendor/autoload.php";
 
-// or
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
 
-Uiza\Category::delete('key ...');
+try {
+    $category = Uiza\Category::retrieve('key ... ');
+    $category->destroy();
+
+    // or
+
+    Uiza\Category::delete('key ...');
+} catch(\Uiza\Exception\ErrorResponse $e) {
+    print($e);
+}
 ````
 
 ### Create Category Relation
@@ -76,12 +125,21 @@ Add relation for entity and category
 See details [here](https://docs.uiza.io/#create-category-relation).
 
 ````
-$params = [
-    "entityId" => "16ab25d3-fd0f-4568-8aa0-0339bbfd674f",
-    "metadataIds" => ["095778fa-7e42-45cc-8a0e-6118e540b61d","e00586b9-032a-46a3-af71-d275f01b03cf"]
-];
+require __DIR__."/../vendor/autoload.php";
 
-Uiza\Category::createRelation($params);
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
+try {
+    $params = [
+        "entityId" => "16ab25d3-fd0f-4568-8aa0-0339bbfd674f",
+        "metadataIds" => ["095778fa-7e42-45cc-8a0e-6118e540b61d","e00586b9-032a-46a3-af71-d275f01b03cf"]
+    ];
+
+    Uiza\Category::createRelation($params);
+} catch(\Uiza\Exception\ErrorResponse $e) {
+    print($e);
+}
 ````
 
 ### Delete Category Relation
@@ -90,10 +148,19 @@ Delete relation for entity and category
 See details [here](https://docs.uiza.io/#delete-category-relation).
 
 ````
-$params = [
-    "entityId" => "16ab25d3-fd0f-4568-8aa0-0339bbfd674f",
-    "metadataIds" => ["095778fa-7e42-45cc-8a0e-6118e540b61d","e00586b9-032a-46a3-af71-d275f01b03cf"]
-];
+require __DIR__."/../vendor/autoload.php";
 
-Uiza\Category::deleteRelation($params);
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
+try {
+    $params = [
+        "entityId" => "16ab25d3-fd0f-4568-8aa0-0339bbfd674f",
+        "metadataIds" => ["095778fa-7e42-45cc-8a0e-6118e540b61d","e00586b9-032a-46a3-af71-d275f01b03cf"]
+    ];
+
+    Uiza\Category::deleteRelation($params);
+} catch(\Uiza\Exception\ErrorResponse $e) {
+    print($e);
+}
 ````

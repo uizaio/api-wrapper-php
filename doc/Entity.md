@@ -9,13 +9,37 @@ Create entity using full URL. Direct HTTP, FTP or AWS S3 link are acceptable.
 See details [here](https://docs.uiza.io/#create-entity).
 
 ````
-$params = [
-    'name' => 'Name entity',
-    'url' => 'http://google.com,
-    'inputType' => 'http',
-];
+require __DIR__."/../vendor/autoload.php";
 
-Uiza\Entity::create($params);
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
+try {
+    $params = [
+        "name" => "Sample Video",
+        "url" => "https://example.com/video.mp4",
+        "inputType" => "http",
+        "description" => "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
+        "shortDescription" => "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
+        "poster" => "https://example.com/picture001.jpeg",
+        "thumbnail" => "https://example.com/picture002.jpeg",
+        "extendMetadata" => [
+            "movie_category" => "action",
+            "imdb_score" => 8.8,
+            "published_year" => "2018"
+        ],
+        "embedMetadata" => [
+            "artist" => "John Doe",
+            "album" => "Album sample",
+            "genre" => "Pop"
+        ],
+        "metadataIds" => ["16a9e425-efb0-4360-bd92-8d49da111e88"]
+    ];
+
+    Uiza\Entity::create($params);
+} catch(\Uiza\Exception\ErrorResponse $e) {
+    print($e);
+}
 ````
 
 ### Retrieve entity
@@ -24,7 +48,16 @@ Get detail of entity including all information of entity.
 See details [here](https://docs.uiza.io/#retrieve-an-entity).
 
 ````
-Uiza\Entity::retrieve('key ... ');
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
+try {
+    Uiza\Entity::retrieve('key ... ');
+} catch(\Uiza\Exception\ErrorResponse $e) {
+    print($e);
+}
 ````
 
 ### List all entities.
@@ -33,11 +66,20 @@ Get list of entities including all detail.
 See details [here](https://docs.uiza.io/#list-all-entities).
 
 ````
-Uiza\Entity::all(['publishToCdn' => 'queue']);
+require __DIR__."/../vendor/autoload.php";
 
-// or
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
 
-Uiza\Entity::list(['publishToCdn' => 'queue']);
+try {
+    Uiza\Entity::all(['publishToCdn' => 'queue']);
+
+    // or
+
+    Uiza\Entity::list(['publishToCdn' => 'queue']);
+} catch(\Uiza\Exception\ErrorResponse $e) {
+    print($e);
+}
 ````
 
 ### Update entity.
@@ -46,16 +88,36 @@ Update entity's information.
 See details [here](https://docs.uiza.io/#update-an-entity).
 
 ````
-$entity = Uiza\Entity::retrieve('key ... ');
-$entity->name = "Name change";
-$entity->save();
+require __DIR__."/../vendor/autoload.php";
 
-// or
-$params = [
-    'name' => 'Name change'
-];
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
 
-Uiza\Entity::update('key ..', $params);
+try {
+    $entity = Uiza\Entity::retrieve('key ... ');
+    $entity->name = "Name change";
+    $entity->description = "Description";
+    $entity->save();
+
+    // or
+
+    $params = [
+        "name" => "Title edited",
+        "description" => "Description edited",
+        "shortDescription" => "001 Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+        "poster" => "/example.com/picture001a",
+        "thumbnail" => "/example.com/picture001a",
+        "extendMetadata"  => [
+            "movie_category" => "action",
+            "imdb_score" => 8.8,
+            "published_year" => "2018"
+        ]
+    ];
+
+    Uiza\Entity::update('key ..', $params);
+} catch(\Uiza\Exception\ErrorResponse $e) {
+    print($e);
+}
 ````
 
 ### Delete entity
@@ -64,12 +126,21 @@ Delete entity.
 See details [here](https://docs.uiza.io/#delete-an-entity).
 
 ````
-$entity = Uiza\Entity::retrieve('key ... ');
-$entity->destroy();
+require __DIR__."/../vendor/autoload.php";
 
-// or
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
 
-Uiza\Entity::delete('key ...');
+try {
+    $entity = Uiza\Entity::retrieve('key ... ');
+    $entity->destroy();
+
+    // or
+
+    Uiza\Entity::delete('key ...');
+} catch(\Uiza\Exception\ErrorResponse $e) {
+    print($e);
+}
 ````
 
 ### Search entity.
@@ -78,7 +149,16 @@ Search entity base on keyword entered.
 See details [here](https://docs.uiza.io/#search-entity).
 
 ````
-Uiza\Entity::search(['keyword' => 'sample']);
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
+try {
+    Uiza\Entity::search(['keyword' => 'sample']);
+} catch(\Uiza\Exception\ErrorResponse $e) {
+    print($e);
+}
 ````
 
 ### Publish entity to CDN
@@ -87,7 +167,16 @@ Publish entity to CDN, use for streaming.
 See details [here](https://docs.uiza.io/#publish-entity-to-cdn).
 
 ````
-Uiza\Entity::publish(['id' => 'key ..']);
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
+try {
+    Uiza\Entity::publish(['id' => 'key ..']);
+} catch(\Uiza\Exception\ErrorResponse $e) {
+    print($e);
+}
 ````
 
 ### Get Status Publish
@@ -95,7 +184,16 @@ Publish entity to CDN, use for streaming.
 
 See details [here](https://docs.uiza.io/#get-status-publish).
 ````
-Uiza\Entity::getStatusPublish('key ...');
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
+try {
+    Uiza\Entity::getStatusPublish('key ...');
+} catch(\Uiza\Exception\ErrorResponse $e) {
+    print($e);
+}
 ````
 
 ### Get AWS Upload Key
@@ -104,5 +202,14 @@ This API will be return the bucket temporary upload storage & key for upload, so
 See details [here](https://docs.uiza.io/#get-aws-upload-key).
 
 ````
-Uiza\Entity::getAWSUploadKey();
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
+try {
+    Uiza\Entity::getAWSUploadKey();
+} catch(\Uiza\Exception\ErrorResponse $e) {
+    print($e);
+}
 ````

@@ -11,7 +11,7 @@ trait Request {
      *
      * @throws \Stripe\Error\Api if $params exists and is not an array
      */
-    protected static function _validateParams($action, $params = null)
+    protected static function _validateParams($action, $params = [])
     {
         if ($params && !is_array($params)) {
             $message = "You must pass an array as the first argument.";

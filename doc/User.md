@@ -11,19 +11,28 @@ Create an user account for workspace
 See details [here](https://docs.uiza.io/#create-an-user).
 
 ````
-$params = [
-    "status"  => 1,
-    "username" => "test",
-    "email" => "abc_test@uiza.io",
-    "fullname" => "Test",
-    "avatar" => "https://exemple.com/avatar.jpeg",
-    "dob" => "05/15/2018",
-    "gender" => 0,
-    "password" => "FMpsr<4[dGPu?B#u",
-    "isAdmin" => 1
-];
+require __DIR__."/../vendor/autoload.php";
 
-Uiza\User::create($params);
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
+try {
+    $params = [
+        "status"  => 1,
+        "username" => "test",
+        "email" => "abc_test@uiza.io",
+        "fullname" => "Test",
+        "avatar" => "https://exemple.com/avatar.jpeg",
+        "dob" => "05/15/2018",
+        "gender" => 0,
+        "password" => "FMpsr<4[dGPu?B#u",
+        "isAdmin" => 1
+    ];
+
+    Uiza\User::create($params);
+} catch(\Uiza\Exception\ErrorResponse $e) {
+    print($e);
+}
 ````
 
 ### Retrieve an user
@@ -33,7 +42,16 @@ You need only supply the unique userId that was returned upon user creation.
 See details [here](https://docs.uiza.io/#retrieve-an-user).
 
 ````
-Uiza\User::retrieve('id user');
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
+try {
+    Uiza\User::retrieve('id user');
+} catch(\Uiza\Exception\ErrorResponse $e) {
+    print($e);
+}
 ````
 
 ### List all users
@@ -44,7 +62,16 @@ If you use User token, you can only get the information of that user
 See details [here](https://docs.uiza.io/#list-all-users).
 
 ````
-Uiza\User::list();
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
+try {
+    Uiza\User::list();
+} catch(\Uiza\Exception\ErrorResponse $e) {
+    print($e);
+}
 ````
 
 ### Update an user
@@ -53,19 +80,28 @@ Updates the specified user by setting the values of the parameters passed. Any p
 See details [here](https://docs.uiza.io/#update-an-user).
 
 ````
-$params = [
-    "status"  => 1,
-    "username" => "test",
-    "email" => "abc_test@uiza.io",
-    "fullname" => "Test",
-    "avatar" => "https://exemple.com/avatar.jpeg",
-    "dob" => "05/15/2018",
-    "gender" => 0,
-    "password" => "FMpsr<4[dGPu?B#u",
-    "isAdmin" => 1
-];
+require __DIR__."/../vendor/autoload.php";
 
-Uiza\User::update('id user', $params);
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
+try {
+    $params = [
+        "status"  => 1,
+        "username" => "test",
+        "email" => "abc_test@uiza.io",
+        "fullname" => "Test",
+        "avatar" => "https://exemple.com/avatar.jpeg",
+        "dob" => "05/15/2018",
+        "gender" => 0,
+        "password" => "FMpsr<4[dGPu?B#u",
+        "isAdmin" => 1
+    ];
+
+    Uiza\User::update('id user', $params);
+} catch(\Uiza\Exception\ErrorResponse $e) {
+    print($e);
+}
 ````
 
 ### Delete an user
@@ -74,7 +110,16 @@ Permanently deletes an user. It cannot be undone. Also immediately cancels all t
 See details [here](https://docs.uiza.io/#delete-an-user).
 
 ````
-Uiza\User::delete('id user');
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
+try {
+    Uiza\User::delete('id user');
+} catch(\Uiza\Exception\ErrorResponse $e) {
+    print($e);
+}
 ````
 
 ### Update password
@@ -83,13 +128,22 @@ Update password allows Admin or User update their current password.
 See details [here](https://docs.uiza.io/#update-password).
 
 ````
-$params = [
-    "id" => "id user",
-    "oldPassword" => "FMpsr<4[dGPu?B#u",
-    "newPassword" => "S57Eb{:aMZhW=)G$"
-];
+require __DIR__."/../vendor/autoload.php";
 
-Uiza\User::changePassword($params);
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
+try {
+    $params = [
+        "id" => "id user",
+        "oldPassword" => "FMpsr<4[dGPu?B#u",
+        "newPassword" => "S57Eb{:aMZhW=)G$"
+    ];
+
+    Uiza\User::changePassword($params);
+} catch(\Uiza\Exception\ErrorResponse $e) {
+    print($e);
+}
 ````
 
 ### Log Out
@@ -98,5 +152,14 @@ This API use to log out an user. After logged out, token will be removed.
 See details [here](https://docs.uiza.io/#log-out).
 
 ````
-Uiza\User::logOut();
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
+try {
+    Uiza\User::logOut();
+} catch(\Uiza\Exception\ErrorResponse $e) {
+    print($e);
+}
 ````
