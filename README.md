@@ -37,7 +37,7 @@ require __DIR__."/../vendor/autoload.php";
 
 ````
 Uiza\Base::setAppId('your-app-id');
-Uiza\Base::setApiKey('your-api-key');
+Uiza\Base::setAuthorization('your-authorization');
 ````
 
 ## Entity

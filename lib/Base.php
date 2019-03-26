@@ -20,7 +20,7 @@ class Base {
 
     const VERSION = '1.2.0';
 
-    public static function setApiKey(string $apiKey)
+    public static function setAuthorization(string $apiKey)
     {
         self::$apiKey = $apiKey;
     }
@@ -28,7 +28,7 @@ class Base {
     /**
      * @return string The API key used for requests.
      */
-    public static function getApiKey()
+    public static function getAuthorization()
     {
         return self::$apiKey;
     }
