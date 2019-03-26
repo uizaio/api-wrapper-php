@@ -10,7 +10,16 @@ You need only supply the unique userId that was returned upon user creation.
 See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-User-get_userInfo).
 
 ````
-Uiza\User::retrieve('id user');
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setAppId('your-app-id');
+Uiza\Base::setAuthorization('your-authorization');
+
+try {
+    Uiza\User::retrieve('id user');
+} catch(\Uiza\Exception\ErrorResponse $e) {
+    print($e);
+}
 ````
 
 ### List all users
@@ -21,7 +30,16 @@ If you use User token, you can only get the information of that user
 See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-User-get_userInfo).
 
 ````
-Uiza\User::list(["id" => ""]);
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setAppId('your-app-id');
+Uiza\Base::setAuthorization('your-authorization');
+
+try {
+    Uiza\User::list(["id" => ""]);
+} catch(\Uiza\Exception\ErrorResponse $e) {
+    print($e);
+}
 ````
 
 ### Update an user
@@ -30,15 +48,24 @@ Updates the specified user by setting the values of the parameters passed. Any p
 See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-User-update_userInfo).
 
 ````
-$params = [
-    "email" => "user_test@gmail.com",
-    "status"  => 1,
-    "name" => "test",
-    "avatar" => "https://exemple.com/avatar.jpeg",
-    "dob" => "YYYY-MM-DD"
-];
+require __DIR__."/../vendor/autoload.php";
 
-Uiza\User::update('id user', $params);
+Uiza\Base::setAppId('your-app-id');
+Uiza\Base::setAuthorization('your-authorization');
+
+try {
+    $params = [
+        "email" => "user_test@gmail.com",
+        "status"  => 1,
+        "name" => "test",
+        "avatar" => "https://exemple.com/avatar.jpeg",
+        "dob" => "YYYY-MM-DD"
+    ];
+
+    Uiza\User::update('id user', $params);
+} catch(\Uiza\Exception\ErrorResponse $e) {
+    print($e);
+}
 ````
 
 ### Update password
@@ -47,13 +74,22 @@ Update password allows Admin or User update their current password.
 See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-User-changePassword).
 
 ````
-$params = [
-    "userId" => "id user",
-    "oldPassword" => "FMpsr<4[dGPu?B#u",
-    "newPassword" => "S57Eb{:aMZhW=)G$"
-];
+require __DIR__."/../vendor/autoload.php";
 
-Uiza\User::changePassword($params);
+Uiza\Base::setAppId('your-app-id');
+Uiza\Base::setAuthorization('your-authorization');
+
+try {
+    $params = [
+        "userId" => "id user",
+        "oldPassword" => "FMpsr<4[dGPu?B#u",
+        "newPassword" => "S57Eb{:aMZhW=)G$"
+    ];
+
+    Uiza\User::changePassword($params);
+} catch(\Uiza\Exception\ErrorResponse $e) {
+    print($e);
+}
 ````
 
 ### Log Out
@@ -62,6 +98,15 @@ This API use to log out an user. After logged out, token will be removed.
 See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-User-Logout).
 
 ````
-Uiza\User::logOut();
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setAppId('your-app-id');
+Uiza\Base::setAuthorization('your-authorization');
+
+try {
+    Uiza\User::logOut();
+} catch(\Uiza\Exception\ErrorResponse $e) {
+    print($e);
+}
 ````
 

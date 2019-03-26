@@ -3,12 +3,17 @@
 require __DIR__."/../vendor/autoload.php";
 
 Uiza\Base::setAppId('your-app-id');
-Uiza\Base::setApiKey('your-api-key');
+Uiza\Base::setAuthorization('your-authorization');
 
-$params = [
-    'name' => 'Name entity',
-    'url' => 'http://google.com',
-    'inputType' => 'http',
-];
+try {
+    $params = [
+        'name' => 'Name entity',
+        'url' => 'http://google.com',
+        'inputType' => 'http',
+    ];
 
-var_dump(Uiza\Entity::create($params));
+    var_dump(Uiza\Entity::create($params));
+} catch (\Uiza\Exception\ErrorResponse $e) {
+    print($e);
+}
+

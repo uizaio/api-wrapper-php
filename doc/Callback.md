@@ -11,11 +11,21 @@ This API will allow you setup a callback to your server when an entity is comple
 See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Callback-create_entity_callback).
 
 ````
-$params = [
-    "url" => "https://callback-url.uiza.co",
-    "method" => "POST"
-];
-Uiza\Callback::create($params);
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setAppId('your-app-id');
+Uiza\Base::setAuthorization('your-authorization');
+
+try {
+    $params = [
+        "url" => "https://callback-url.uiza.co",
+        "method" => "POST"
+    ];
+
+    Uiza\Callback::create($params);
+} catch(\Uiza\Exception\ErrorResponse $e) {
+    print($e);
+}
 ````
 
 ### Retrieve a callback
@@ -25,7 +35,16 @@ Retrieves the details of an existing callback.
 See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Callback-get_entity_callback).
 
 ````
-Uiza\Callback::retrieve('id callback');
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setAppId('your-app-id');
+Uiza\Base::setAuthorization('your-authorization');
+
+try {
+    Uiza\Callback::retrieve('id callback');
+} catch(\Uiza\Exception\ErrorResponse $e) {
+    print($e);
+}
 ````
 
 ### Update a callback
@@ -35,11 +54,20 @@ This API will allow you setup a callback to your server when an entity is comple
 See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Callback-update_entity_callback).
 
 ````
-$params = [
-    "url" => "https://callback-url.uiza.co",
-    "method" => "POST"
-];
-Uiza\Callback::update('id callback', $params);
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setAppId('your-app-id');
+Uiza\Base::setAuthorization('your-authorization');
+
+try {
+    $params = [
+        "url" => "https://callback-url.uiza.co",
+        "method" => "POST"
+    ];
+    Uiza\Callback::update('id callback', $params);
+} catch(\Uiza\Exception\ErrorResponse $e) {
+    print($e);
+}
 ````
 
 ### Delete a callback
@@ -49,5 +77,14 @@ Delete an existing callback.
 See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Callback-delete_entity_callback).
 
 ````
-Uiza\Callback::delete('id callback');
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setAppId('your-app-id');
+Uiza\Base::setAuthorization('your-authorization');
+
+try {
+    Uiza\Callback::delete('id callback');
+} catch(\Uiza\Exception\ErrorResponse $e) {
+    print($e);
+}
 ````
