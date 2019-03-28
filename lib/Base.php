@@ -12,7 +12,7 @@ class Base {
 
     public static $apiKey;
 
-    public static $apiBase = 'https://stag-ap-southeast-1-api.uizadev.io';
+    public static $apiBase = 'https://ap-southeast-1-api.uiza.co';
 
     public static $apiVersion = 'v4';
 
