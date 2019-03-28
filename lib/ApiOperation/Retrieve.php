@@ -10,7 +10,7 @@ trait Retrieve {
      *
      * @return \Uiza\StripeObject
      */
-    public static function retrieve($id, $params = null)
+    public static function retrieve($id, $params = [])
     {
         self::_validateParams('Retrieve', $params);
         $instance = new static($id);

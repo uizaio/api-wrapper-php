@@ -18,7 +18,7 @@ class CallbackTest extends TestBase
             'data' => [
                 'id' => '8b83886e-9cc3-4eab-9258-ebb16c0c73de',
             ],
-            'version' => 3,
+            'version' => 4,
             'code' => 200,
             'message' => 'OK',
         ];
@@ -87,7 +87,7 @@ class CallbackTest extends TestBase
                 "createdAt" => "2018-06-23T01:27:08.000Z",
                 "updatedAt" => "2018-06-23T01:27:08.000Z"
             ],
-            'version' => 3,
+            'version' => 4,
             'code' => 200,
             'message' => 'OK',
         ];
@@ -139,7 +139,7 @@ class CallbackTest extends TestBase
             'data' => [
                 'id' => '8b83886e-9cc3-4eab-9258-ebb16c0c73de',
             ],
-            'version' => 3,
+            'version' => 4,
             'code' => 200,
             'message' => 'OK',
         ];
@@ -201,7 +201,7 @@ class CallbackTest extends TestBase
             'data' => [
                 'id' => '8b83886e-9cc3-4eab-9258-ebb16c0c73de',
             ],
-            'version' => 3,
+            'version' => 4,
             'code' => 200,
             'message' => 'OK',
         ];

@@ -9,9 +9,10 @@ trait Create {
      *
      * @return \Uiza\ApiResource The created resource.
      */
-    public static function create($params = null, $options = null)
+    public static function create($params = [], $options = null)
     {
         self::_validateParams('Create', $params);
+        $params = array_merge($params, [ 'appId' => \Uiza\Base::$appId ]);
         $url = static::resourceUrl();
         $response = static::_staticRequest('POST', $url, $params, $options);
 

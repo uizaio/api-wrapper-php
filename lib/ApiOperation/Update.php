@@ -11,10 +11,14 @@ trait Update
      *
      * @return \Uiza\ApiResource The updated resource.
      */
-    public static function update($id, $params = null)
+    public static function update($id, $params = [])
     {
         self::_validateParams('Update', $params);
-        $params += ['id' => $id];
+        $params = array_merge($params,[
+            'id' => $id,
+            'appId' => \Uiza\Base::$appId
+        ]);
+
         $url = static::resourceUrl();
         $response = static::_staticRequest('PUT', $url, $params);
         $instance = new static($id);

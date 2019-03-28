@@ -12,95 +12,20 @@ class UserTest extends TestBase
         parent::setUp();
     }
 
-    public function testCreate()
-    {
-        $return = [
-            'data' => [
-                'id' => '37d6706e-be91-463e-b3b3-b69451dd4752',
-            ],
-            'version' => 3,
-            'code' => 200,
-            'message' => 'OK',
-        ];
-
-        $this->mockData($return);
-
-        $params = [
-            "status"  => 1,
-            "username" => "test",
-            "email" => "abc_test@uiza.io",
-            "fullname" => "Test",
-            "avatar" => "https://exemple.com/avatar.jpeg",
-            "dob" => "05/15/2018",
-            "gender" => 0,
-            "password" => "FMpsr<4[dGPu?B#u",
-            "isAdmin" => 1
-        ];
-
-        $user = User::create($params);
-
-        $this->assertInstanceOf(User::class, $user);
-
-        $this->assertEquals($user->id, $return['data']['id']);
-    }
-
-    public function testCreateError()
-    {
-        $statusCode = $this->statusCode();
-
-        foreach ($statusCode as $key => $value) {
-            $this->mockDataError($key);
-
-            try {
-                $params = [
-                    "status"  => 1,
-                    "username" => "test",
-                    "email" => "abc_test@uiza.io",
-                    "fullname" => "Test",
-                    "avatar" => "https://exemple.com/avatar.jpeg",
-                    "dob" => "05/15/2018",
-                    "gender" => 0,
-                    "password" => "FMpsr<4[dGPu?B#u",
-                    "isAdmin" => 1
-                ];
-
-                $user = User::create($params);
-
-            } catch (\Uiza\Exception\BadRequestError $e) {
-                $this->assertEquals($e->statusCode, 400);
-            } catch (\Uiza\Exception\UnauthorizedError $e) {
-                $this->assertEquals($e->statusCode, 401);
-            } catch (\Uiza\Exception\NotFoundError $e) {
-                $this->assertEquals($e->statusCode, 404);
-            } catch (\Uiza\Exception\UnprocessableError $e) {
-                $this->assertEquals($e->statusCode, 422);
-            } catch (\Uiza\Exception\InternalServerError $e) {
-                $this->assertEquals($e->statusCode, 500);
-            } catch (\Uiza\Exception\ServiceUnavailableError $e) {
-                $this->assertEquals($e->statusCode, 503);
-            } catch (\Uiza\Exception\ClientError $e) {
-                $this->assertEquals($e->statusCode, $key);
-            } catch (\Uiza\Exception\ServerError $e) {
-                $this->assertEquals($e->statusCode, $key);
-            }
-        }
-    }
-
     public function testRetrieve()
     {
         $return = [
             'data' => [
                 'id' => '42ceb1ab-18ef-4f2e-b076-14299756d182',
-                "isAdmin" => 0,
-                "username" => "test pass",
                 "email" => "a_test@uiza.io",
+                "dob" => "2018-08-08",
+                "name" => "test pass",
                 "avatar" => "https://exemple.com/avatar.jpeg",
-                "fullName" => "Test",
+                "status" => 1,
                 "updatedAt" => "2019-03-04T03:20:04.000Z",
                 "createdAt" => "2019-03-04T03:20:04.000Z",
-                "status" => 1
             ],
-            'version' => 3,
+            'version' => 4,
             'code' => 200,
             'message' => 'OK',
         ];
@@ -151,26 +76,24 @@ class UserTest extends TestBase
         $return = [
             'data' => [
                 [
-                    "id" => "3c7d0741-459f-4c06-9841-9a8eb199c02f",
-                    "isAdmin" => 0,
-                    "username" => "test pass",
+                    'id' => '42ceb1ab-18ef-4f2e-b076-14299756d182',
                     "email" => "a_test@uiza.io",
+                    "dob" => "2018-08-08",
+                    "name" => "test pass",
                     "avatar" => "https://exemple.com/avatar.jpeg",
-                    "fullName" => "Test",
+                    "status" => 1,
                     "updatedAt" => "2019-03-04T03:20:04.000Z",
                     "createdAt" => "2019-03-04T03:20:04.000Z",
-                    "status" => 1
                 ],
                 [
-                    "id" => "3c7d0741-459f-4c06-9841-9a8eb199c02f",
-                    "isAdmin" => 0,
-                    "username" => "test22 pass",
-                    "email" => "a_test2@uiza.io",
+                    'id' => '42ceb1ab-18ef-4f2e-b076-14299756d182',
+                    "email" => "a_test@uiza.io",
+                    "dob" => "2018-08-08",
+                    "name" => "test pass",
                     "avatar" => "https://exemple.com/avatar.jpeg",
-                    "fullName" => "Test",
+                    "status" => 1,
                     "updatedAt" => "2019-03-04T03:20:04.000Z",
                     "createdAt" => "2019-03-04T03:20:04.000Z",
-                    "status" => 1
                 ],
             ],
             'metadata' => [
@@ -179,14 +102,14 @@ class UserTest extends TestBase
                 'page' => 1,
                 'limit' => 20,
             ],
-            'version' => 3,
+            'version' => 4,
             'code' => 200,
             'message' => 'OK',
         ];
 
         $this->mockData($return);
 
-        $users = User::list();
+        $users = User::list(["id" => ""]);
 
         $this->assertInternalType('array', $users->body->data);
     }
@@ -199,7 +122,7 @@ class UserTest extends TestBase
             $this->mockDataError($key);
 
             try {
-                $users = User::list();
+                $users = User::list(["id" => ""]);
 
             } catch (\Uiza\Exception\BadRequestError $e) {
                 $this->assertEquals($e->statusCode, 400);
@@ -227,7 +150,7 @@ class UserTest extends TestBase
             'data' => [
                 'id' => '37d6706e-be91-463e-b3b3-b69451dd4752',
             ],
-            'version' => 3,
+            'version' => 4,
             'code' => 200,
             'message' => 'OK',
         ];
@@ -235,15 +158,11 @@ class UserTest extends TestBase
         $this->mockData($return);
 
         $params = [
-            "status"  => 1,
-            "username" => "test",
-            "email" => "abc_test@uiza.io",
-            "fullname" => "Test",
+            "email" => "a_test@uiza.io",
+            "dob" => "2018-08-08",
+            "name" => "update",
             "avatar" => "https://exemple.com/avatar.jpeg",
-            "dob" => "05/15/2018",
-            "gender" => 0,
-            "password" => "FMpsr<4[dGPu?B#u",
-            "isAdmin" => 1
+            "status" => 1
         ];
 
         $id = '37d6706e-be91-463e-b3b3-b69451dd4752';
@@ -263,15 +182,11 @@ class UserTest extends TestBase
 
             try {
                 $params = [
-                    "status"  => 1,
-                    "username" => "test",
-                    "email" => "abc_test@uiza.io",
-                    "fullname" => "Test",
+                    "email" => "a_test@uiza.io",
+                    "dob" => "2018-08-08",
+                    "name" => "update",
                     "avatar" => "https://exemple.com/avatar.jpeg",
-                    "dob" => "05/15/2018",
-                    "gender" => 0,
-                    "password" => "FMpsr<4[dGPu?B#u",
-                    "isAdmin" => 1
+                    "status" => 1
                 ];
 
                 $id = '37d6706e-be91-463e-b3b3-b69451dd4752';
@@ -297,63 +212,20 @@ class UserTest extends TestBase
         }
     }
 
-    public function testDelete()
-    {
-        $return = [
-            'data' => [
-                'id' => '37d6706e-be91-463e-b3b3-b69451dd4752',
-            ],
-            'version' => 3,
-            'code' => 200,
-            'message' => 'OK',
-        ];
-
-        $this->mockData($return);
-
-        $id = '37d6706e-be91-463e-b3b3-b69451dd4752';
-        $user = User::delete($id);
-
-        $this->assertEquals($user->id, $return['data']['id']);
-    }
-
-    public function testDeleteError()
-    {
-        $statusCode = $this->statusCode();
-
-        foreach ($statusCode as $key => $value) {
-            $this->mockDataError($key);
-
-            try {
-                $id = '37d6706e-be91-463e-b3b3-b69451dd4752';
-                $user = User::delete($id);
-
-            } catch (\Uiza\Exception\BadRequestError $e) {
-                $this->assertEquals($e->statusCode, 400);
-            } catch (\Uiza\Exception\UnauthorizedError $e) {
-                $this->assertEquals($e->statusCode, 401);
-            } catch (\Uiza\Exception\NotFoundError $e) {
-                $this->assertEquals($e->statusCode, 404);
-            } catch (\Uiza\Exception\UnprocessableError $e) {
-                $this->assertEquals($e->statusCode, 422);
-            } catch (\Uiza\Exception\InternalServerError $e) {
-                $this->assertEquals($e->statusCode, 500);
-            } catch (\Uiza\Exception\ServiceUnavailableError $e) {
-                $this->assertEquals($e->statusCode, 503);
-            } catch (\Uiza\Exception\ClientError $e) {
-                $this->assertEquals($e->statusCode, $key);
-            } catch (\Uiza\Exception\ServerError $e) {
-                $this->assertEquals($e->statusCode, $key);
-            }
-        }
-    }
-
     public function testChangePassword()
     {
         $return = [
             'data' => [
-                'result' => 'ok',
+                'id' => '42ceb1ab-18ef-4f2e-b076-14299756d182',
+                "email" => "a_test@uiza.io",
+                "dob" => "2018-08-08",
+                "name" => "test pass",
+                "avatar" => "https://exemple.com/avatar.jpeg",
+                "status" => 1,
+                "updatedAt" => "2019-03-04T03:20:04.000Z",
+                "createdAt" => "2019-03-04T03:20:04.000Z",
             ],
-            'version' => 3,
+            'version' => 4,
             'code' => 200,
             'message' => 'OK',
         ];
@@ -361,7 +233,7 @@ class UserTest extends TestBase
         $this->mockData($return);
 
         $params = [
-            "id" => "2c98b4d5-7d7f-4a0f-9258-5689f90fd28c",
+            "userId" => "42ceb1ab-18ef-4f2e-b076-14299756d182",
             "oldPassword" => "FMpsr<4[dGPu?B#u",
             "newPassword" => "S57Eb{:aMZhW=)G$"
         ];
@@ -369,7 +241,7 @@ class UserTest extends TestBase
         $user = User::changePassword($params);
 
         $this->assertInstanceOf(User::class, $user);
-        $this->assertEquals($user->result, $return['data']['result']);
+        $this->assertEquals($user->id, $return['data']['id']);
     }
 
     public function testChangePasswordError()
@@ -381,7 +253,7 @@ class UserTest extends TestBase
 
             try {
                 $params = [
-                    "id" => "2c98b4d5-7d7f-4a0f-9258-5689f90fd28c",
+                    "userId" => "42ceb1ab-18ef-4f2e-b076-14299756d182",
                     "oldPassword" => "FMpsr<4[dGPu?B#u",
                     "newPassword" => "S57Eb{:aMZhW=)G$"
                 ];
@@ -411,8 +283,12 @@ class UserTest extends TestBase
     public function testLogOut()
     {
         $return = [
+            "data" => [
+                "message" => "success",
+            ],
+            "version" => 4,
             "message" => "Logout success",
-            "code" => 200,
+            "code" => 200
         ];
 
         $this->mockData($return);
