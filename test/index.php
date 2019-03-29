@@ -16,4 +16,3 @@ try {
 } catch (\Uiza\Exception\ErrorResponse $e) {
     print($e);
 }
-
