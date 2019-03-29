@@ -1,6 +1,8 @@
 ## User Management
 You can manage user with APIs user.
 
+See details [here](https://docs.uiza.io/v4/?php#user-management).
+
 ### Retrieve an user
 Retrieves the details of an existing user.
 You need only supply the unique userId that was returned upon user creation.

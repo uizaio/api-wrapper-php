@@ -23,7 +23,7 @@ composer require uiza/uiza-php
 ## Usage
 The library needs to be configured with your account's `appId` and `authorization` (API key).\
 
-See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/).
+See documents [here](https://docs.uiza.io/v4).
 
 ## Getting Started
 
