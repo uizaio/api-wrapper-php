@@ -1,12 +1,12 @@
 ## Entity
 These below APIs used to take action with your media files (we called Entity).
 
-See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media).
+See details [here](https://docs.uiza.io/v4/?php#video).
 
 ### Create entity.
 Create entity using full URL. Direct HTTP, FTP or AWS S3 link are acceptable.
 
-See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media-create_entity).
+See details [here](https://docs.uiza.io/v4/?php#create-entity).
 
 ````
 require __DIR__."/../vendor/autoload.php";
@@ -14,14 +14,18 @@ require __DIR__."/../vendor/autoload.php";
 Uiza\Base::setAppId('your-app-id');
 Uiza\Base::setAuthorization('your-authorization');
 
-try {
-    $params = [
-        'name' => 'Name entity',
-        'url' => 'http://google.com',
-        'inputType' => 'http',
-    ];
+$params = [
+    "name" => "The Evolution of Dance",
+    "url" => "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_10mb.mp4",
+    "inputType" => "http",
+    "description" => "Judson Laipply did a fantastic job in performing various dance moves",
+    "shortDescription" => "How good a dancer can you be?"
+];
 
-    Uiza\Entity::create($params);
+try {
+    $entity = Uiza\Entity::create($params);
+
+    print_r($entity);
 } catch(\Uiza\Exception\ErrorResponse $e) {
     print($e);
 }
@@ -30,7 +34,7 @@ try {
 ### Retrieve entity
 Get detail of entity including all information of entity.
 
-See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media-get_entity).
+See details [here](https://docs.uiza.io/v4/?php#retrieve-an-entity).
 
 ````
 require __DIR__."/../vendor/autoload.php";
@@ -39,7 +43,9 @@ Uiza\Base::setAppId('your-app-id');
 Uiza\Base::setAuthorization('your-authorization');
 
 try {
-    Uiza\Entity::retrieve('key ... ');
+    $entity = Uiza\Entity::retrieve('key ... ');
+
+    print_r($entity);
 } catch(\Uiza\Exception\ErrorResponse $e) {
     print($e);
 }
@@ -48,7 +54,7 @@ try {
 ### List all entities.
 Get list of entities including all detail.
 
-See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media-get_entity).
+See details [here](https://docs.uiza.io/v4/?php#list-entities).
 
 ````
 require __DIR__."/../vendor/autoload.php";
@@ -57,11 +63,9 @@ Uiza\Base::setAppId('your-app-id');
 Uiza\Base::setAuthorization('your-authorization');
 
 try {
-    Uiza\Entity::all();
+    $entities = Uiza\Entity::list();
 
-    // or
-
-    Uiza\Entity::list();
+    print_r($entities);
 } catch(\Uiza\Exception\ErrorResponse $e) {
     print($e);
 }
@@ -70,7 +74,7 @@ try {
 ### Update entity.
 Update entity's information.
 
-See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media-update_entity).
+See details [here](https://docs.uiza.io/v4/?php#update-an-entity).
 
 ````
 require __DIR__."/../vendor/autoload.php";
@@ -78,20 +82,15 @@ require __DIR__."/../vendor/autoload.php";
 Uiza\Base::setAppId('your-app-id');
 Uiza\Base::setAuthorization('your-authorization');
 
+$params = [
+    "name" => "The Evolution of Dance 2",
+    "description" => "Judson Laipply did it again with a fantastic job in performing better dance moves"
+];
+
 try {
-    $entity = Uiza\Entity::retrieve('key ... ');
-    $entity->name = "Name change";
-    $entity->save();
+    $entity = Uiza\Entity::update('key ..', $params);
 
-    // or
-
-    $params = [
-        'name' => 'Name change',
-        'url' => 'http://google.com',
-        'inputType' => 'http',
-    ];
-
-    Uiza\Entity::update('key ..', $params);
+    print_r($entity);
 } catch(\Uiza\Exception\ErrorResponse $e) {
     print($e);
 }
@@ -100,7 +99,7 @@ try {
 ### Delete entity
 Delete entity.
 
-See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media-delete_entity).
+See details [here](https://docs.uiza.io/v4/?php#delete-an-entity).
 
 ````
 require __DIR__."/../vendor/autoload.php";
@@ -109,12 +108,9 @@ Uiza\Base::setAppId('your-app-id');
 Uiza\Base::setAuthorization('your-authorization');
 
 try {
-    $entity = Uiza\Entity::retrieve('key ... ');
-    $entity->destroy();
+    $response = Uiza\Entity::delete('key ...');
 
-    // or
-
-    Uiza\Entity::delete('key ...');
+    print_r($response);
 } catch(\Uiza\Exception\ErrorResponse $e) {
     print($e);
 }
@@ -123,6 +119,7 @@ try {
 ### Search entity.
 Search entity base on keyword entered.
 
+See details [here](https://docs.uiza.io/v4/?php#search-entity).
 ````
 require __DIR__."/../vendor/autoload.php";
 
@@ -130,7 +127,9 @@ Uiza\Base::setAppId('your-app-id');
 Uiza\Base::setAuthorization('your-authorization');
 
 try {
-    Uiza\Entity::search(['keyword' => 'sample']);
+    $entities = Uiza\Entity::search(["keyword" => "dance"]);
+
+    print_r($entities);
 } catch(\Uiza\Exception\ErrorResponse $e) {
     print($e);
 }
@@ -139,7 +138,7 @@ try {
 ### Publish entity to CDN
 Publish entity to CDN, use for streaming.
 
-See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media-post_transcode_standard).
+See details [here](https://docs.uiza.io/v4/?php#publish-entity-to-cdn).
 
 ````
 require __DIR__."/../vendor/autoload.php";
@@ -148,7 +147,9 @@ Uiza\Base::setAppId('your-app-id');
 Uiza\Base::setAuthorization('your-authorization');
 
 try {
-    Uiza\Entity::publish(['id' => 'key ..']);
+    $response = Uiza\Entity::publish(['id' => 'key ..']);
+
+    print_r($response);
 } catch(\Uiza\Exception\ErrorResponse $e) {
     print($e);
 }
@@ -157,7 +158,7 @@ try {
 ### Get Status Publish
 Publish entity to CDN, use for streaming.
 
-See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media-get_publish_cdn_status).
+See details [here](https://docs.uiza.io/v4/?php#get-publish-status).
 
 ````
 require __DIR__."/../vendor/autoload.php";
@@ -166,7 +167,9 @@ Uiza\Base::setAppId('your-app-id');
 Uiza\Base::setAuthorization('your-authorization');
 
 try {
-    Uiza\Entity::getStatusPublish('key ...');
+    $response = Uiza\Entity::getStatusPublish('key ...');
+
+    print_r($response);
 } catch(\Uiza\Exception\ErrorResponse $e) {
     print($e);
 }
@@ -175,7 +178,7 @@ try {
 ### Get AWS Upload Key
 This API will be return the bucket temporary upload storage & key for upload, so that you can push your file to Uiza’s storage and get the link for URL upload & create entity.
 
-See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-App-get_aws_key).
+See details [here](https://docs.uiza.io/v4/?php#get-aws-upload-key).
 
 ````
 require __DIR__."/../vendor/autoload.php";
@@ -184,7 +187,9 @@ Uiza\Base::setAppId('your-app-id');
 Uiza\Base::setAuthorization('your-authorization');
 
 try {
-    Uiza\Entity::getAWSUploadKey();
+    $response = Uiza\Entity::getAWSUploadKey();
+
+    print_r($response);
 } catch(\Uiza\Exception\ErrorResponse $e) {
     print($e);
 }

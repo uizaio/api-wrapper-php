@@ -52,7 +52,7 @@ See details [here](https://github.com/uizaio/api-wrapper-php/blob/develop/doc/Ca
 
 ## Storage
 You can add your storage (`FTP`, `AWS S3`) with UIZA.
-After synced, you can select your content easier from your storage to [create entity](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media-create_entity).
+After synced, you can select your content easier from your storage to [create entity](https://docs.uiza.io/v4/?php#create-entity).
 
 See details [here](https://github.com/uizaio/api-wrapper-php/blob/develop/doc/Storage.md).
 
