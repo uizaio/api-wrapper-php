@@ -8,6 +8,8 @@ class Live extends ApiResource
     use \Uiza\ApiOperation\Retrieve;
     use \Uiza\ApiOperation\Update;
 
+    const PATH_REGION = '/live/region';
+
     /**
      * @return string The endpoint URL for the given class.
      */
@@ -19,6 +21,24 @@ class Live extends ApiResource
     public static function resourceUrl()
     {
         return Base::getBaseUrl() . self::classUrl();
+    }
+
+    public static function regionResourceUrl()
+    {
+        return Base::getBaseUrl() . self::PATH_REGION;
+    }
+
+    public static function getRegions()
+    {
+        self::_validateParams('getRegions', []);
+        $url = static::regionResourceUrl();
+        $response = static::_staticRequest('GET', $url, []);
+
+        $instance = new static();
+        $instance->refreshFrom($response->body);
+        $instance->setLastResponse($response);
+
+        return $instance;
     }
 
     public static function startFeed($params = [])
